@@ -4,8 +4,8 @@ import { Shield, Database, Sparkles, Brain, Code, Cloud, Award, MapPin } from 'l
 import { useAppContext } from '../../context/AppContext';
 
 const skills = [
-  { name: 'AI/ML & Gen-AI Development', icon: Brain, value: 95, highlight: true },
-  { name: 'Backend Engineering (Python)', icon: Code, value: 90, highlight: true },
+  { name: 'AI/ML & Gen-AI Development', icon: Brain, value: 95 },
+  { name: 'Backend Engineering', icon: Code, value: 90 },
   { name: 'Cloud Architecture (AWS/GCP)', icon: Cloud, value: 88 },
   { name: 'Database & MLOps', icon: Database, value: 85 },
   { name: 'Full-Stack Development', icon: Sparkles, value: 82 },
@@ -114,28 +114,19 @@ const AboutSection = () => {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <div className={`p-1.5 rounded-full ${skill.highlight ? 'bg-neon-cyan/20' : 'bg-neon-blue/10'}`}>
-                          <Icon size={16} className={skill.highlight ? 'text-neon-cyan' : 'text-neon-cyan'} />
+                        <div className="p-1.5 rounded-full bg-neon-cyan/20">
+                          <Icon size={16} className="text-neon-cyan" />
                         </div>
                         <span className="font-medium text-sm">{skill.name}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-bold text-neon-cyan">{skill.value}%</span>
-                        {skill.highlight && (
-                          <span className="px-2 py-0.5 bg-neon-cyan/20 rounded text-xs font-bold text-neon-cyan">
-                            EXPERT
-                          </span>
-                        )}
                       </div>
                     </div>
                     
                     <div className="h-1.5 w-full bg-deep-space/80 rounded-full overflow-hidden">
                       <motion.div 
-                        className={`h-full ${
-                          skill.highlight 
-                            ? 'bg-gradient-to-r from-neon-cyan to-neon-purple' 
-                            : 'bg-gradient-to-r from-neon-cyan to-neon-purple'
-                        }`}
+                        className="h-full bg-gradient-to-r from-neon-cyan to-neon-purple"
                         initial={{ width: 0 }}
                         animate={shouldAnimate ? { width: `${skill.value}%` } : { width: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
