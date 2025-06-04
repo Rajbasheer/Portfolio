@@ -44,7 +44,7 @@ const projects: Project[] = [
     technologies: ['Python', 'FastAPI', 'LangChain', 'OpenAI'],
     image: '/Portfolio/assets/mutli_llm.png',
     company: 'Vitel Global',
-    year: '2024',
+    year: '2025',
     impact: 'Multi-model orchestration, enterprise scalability'
   },
   {
