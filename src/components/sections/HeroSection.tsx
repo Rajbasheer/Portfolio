@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { useAppContext } from '../../context/AppContext';
@@ -199,8 +199,8 @@ const HeroSection = () => {
         </motion.div>
       </div>
       
-      <div className="md:w-1/2 h-[40vh] md:h-[60vh] z-0 md:order-2 order-1 mb-8 md:mb-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <div className="md:w-1/2 h-[40vh] md:h-[60vh] z-0 md:order-2 order-1 mb-8 md:mb-0 flex items-center justify-center">
+        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
           <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} intensity={0.8} color="#9D00FF" />
           <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00FFFF" />

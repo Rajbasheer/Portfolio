@@ -121,10 +121,11 @@ const HolographicAvatar = () => {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       onClick={() => setClicked(!clicked)}
+      position={[0, 0, 0]} // Center the model
     >
       <primitive 
         object={nodes.Scene}
-        position={[0, -1, 0]}
+        position={[0, 0, 0]} // Center the primitive object
       />
       
       {/* Enhanced dynamic lighting system */}
