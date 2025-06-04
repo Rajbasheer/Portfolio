@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useAppContext } from '../../context/AppContext';
+import { motion, useInView } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
 
 interface Project {
@@ -93,22 +92,18 @@ const projects: Project[] = [
 
 const ProjectsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const { activeSection } = useAppContext();
-  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [visibleProjects, setVisibleProjects] = useState(3);
   
-  // Simple animation trigger when section becomes active
-  useEffect(() => {
-    if (activeSection === 'projects') {
-      // Small delay to ensure smooth transition
-      const timer = setTimeout(() => {
-        setShouldAnimate(true);
-      }, 200);
-      return () => clearTimeout(timer);
-    } else {
-      setShouldAnimate(false);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
     }
-  }, [activeSection]);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -133,15 +128,16 @@ const ProjectsSection = () => {
     <motion.section
       ref={ref}
       className="section-container"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.8 }}
     >
       <div className="content-wrapper">
         {/* Header */}
         <motion.div
           className="mb-6"
           initial={{ y: -20, opacity: 0 }}
-          animate={shouldAnimate ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">
@@ -152,12 +148,7 @@ const ProjectsSection = () => {
           </p>
           
           {/* Impact Summary */}
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
             <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
               <div className="text-neon-cyan font-bold text-sm md:text-lg">10K+</div>
               <div className="text-xs text-white/70">Calls Handled</div>
@@ -174,19 +165,24 @@ const ProjectsSection = () => {
               <div className="text-neon-purple font-bold text-sm md:text-lg">3×</div>
               <div className="text-xs text-white/70">Efficiency</div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
         
         {/* Projects Container */}
         <div className="relative flex-1">
-          <div className="projects-grid">
+          <motion.div
+            className="projects-grid"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             {projects.map((project, index) => (
               <motion.div 
                 key={project.id}
                 className="snap-center"
-                initial={{ opacity: 0, y: 30 }}
-                animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <ProjectCard
                   project={project}
@@ -194,7 +190,7 @@ const ProjectsSection = () => {
                 />
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </motion.section>
