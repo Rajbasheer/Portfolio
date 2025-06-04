@@ -144,7 +144,7 @@ const ContactSection = () => {
             </div>
 
             <motion.a
-              href="https://linkedin.com/in/rajbasheer/"
+              href="https://linkedin.com/in/rajbasheerbaig-mogal/"
               target="_blank"
               rel="noopener noreferrer"
               className="block p-3 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
