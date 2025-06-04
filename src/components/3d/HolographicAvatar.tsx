@@ -56,11 +56,9 @@ const HolographicAvatar = () => {
         
         meshRef.current.rotation.x += rotationSpeed.x * 0.01;
         meshRef.current.rotation.y += rotationSpeed.y * 0.01;
-        meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1;
       } else {
         meshRef.current.rotation.x *= 0.95;
         meshRef.current.rotation.y *= 0.95;
-        meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.2;
       }
       
       if (clicked) {
