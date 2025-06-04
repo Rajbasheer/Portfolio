@@ -20,7 +20,7 @@ const projects: Project[] = [
     title: 'AI-Powered Voice Agent',
     description: 'Revolutionary AI Voice Agent that automates outbound calling and appointment scheduling, achieving 3× response efficiency and 60% reduction in manual work using Python, AWS Lambda, and LangChain.',
     technologies: ['Python', 'AWS Lambda', 'FastAPI', 'Twilio'],
-    image: '/Portfolio/assets/calling.png',
+    image: '/Portfolio/assets/Calling.png',
     company: 'Vitel Global',
     year: '2024',
     liveUrl: 'https://callingo.ai/',
