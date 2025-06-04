@@ -48,14 +48,20 @@ const HolographicAvatar = () => {
           // Add custom shader chunks for enhanced glow
           if (material instanceof THREE.MeshStandardMaterial) {
             material.onBeforeCompile = (shader) => {
+              shader.uniforms.time = { value: 0 };
+              
               shader.fragmentShader = shader.fragmentShader.replace(
                 '#include <emissivemap_fragment>',
                 `
+                uniform float time;
                 #include <emissivemap_fragment>
                 float pulse = sin(vUv.x * 10.0 + time) * 0.5 + 0.5;
                 totalEmissiveRadiance += emissive * pulse;
                 `
               );
+              
+              // Store shader reference for updating time uniform
+              (material as any)._shader = shader;
             };
           }
         }
@@ -81,9 +87,14 @@ const HolographicAvatar = () => {
       const floatIntensity = hovered ? 0.4 : 0.2;
       meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * floatIntensity;
       
-      // Pulsating glow effect
+      // Update shader time uniform
       if (materials) {
         Object.values(materials).forEach(material => {
+          if (material instanceof THREE.Material && (material as any)._shader) {
+            (material as any)._shader.uniforms.time.value = state.clock.getElapsedTime();
+          }
+          
+          // Pulsating glow effect
           if (material instanceof THREE.Material) {
             const pulseIntensity = Math.sin(state.clock.getElapsedTime() * 2) * 0.2 + 0.8;
             material.emissiveIntensity = hovered ? pulseIntensity : 0.5;
