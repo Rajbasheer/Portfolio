@@ -25,7 +25,7 @@ const HolographicAvatar = () => {
     textures.normalMap.repeat.set(1, 1);
   }, [textures]);
 
-  // Apply textures to materials
+  // Apply enhanced glowing materials
   useEffect(() => {
     if (materials) {
       Object.values(materials).forEach(material => {
@@ -34,16 +34,34 @@ const HolographicAvatar = () => {
           material.normalMap = textures.normalMap;
           material.needsUpdate = true;
           
-          // Enhanced material properties
-          material.metalness = 0.8;
-          material.roughness = 0.2;
-          material.envMapIntensity = 1.5;
+          // Enhanced glowing material properties
+          material.metalness = 0.9;
+          material.roughness = 0.1;
+          material.envMapIntensity = 2;
           material.transparent = true;
-          material.opacity = 0.9;
+          material.opacity = 0.95;
+          
+          // Add emissive glow
+          material.emissive = new THREE.Color(hovered ? '#00FFFF' : '#9D00FF');
+          material.emissiveIntensity = hovered ? 0.8 : 0.5;
+          
+          // Add custom shader chunks for enhanced glow
+          if (material instanceof THREE.MeshStandardMaterial) {
+            material.onBeforeCompile = (shader) => {
+              shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <emissivemap_fragment>',
+                `
+                #include <emissivemap_fragment>
+                float pulse = sin(vUv.x * 10.0 + time) * 0.5 + 0.5;
+                totalEmissiveRadiance += emissive * pulse;
+                `
+              );
+            };
+          }
         }
       });
     }
-  }, [materials, textures]);
+  }, [materials, textures, hovered]);
 
   // Interactive animations
   const springs = useSpring({
@@ -52,16 +70,26 @@ const HolographicAvatar = () => {
     config: { mass: 2, tension: 280, friction: 60 },
   });
   
-  // Animate model
+  // Enhanced animation with glow effects
   useFrame((state) => {
     if (meshRef.current) {
       // Smooth rotation
       const targetRotationY = hovered ? state.clock.getElapsedTime() * 0.5 : state.clock.getElapsedTime() * 0.2;
       meshRef.current.rotation.y += (targetRotationY - meshRef.current.rotation.y) * 0.1;
       
-      // Interactive floating motion
+      // Dynamic floating motion
       const floatIntensity = hovered ? 0.4 : 0.2;
       meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * floatIntensity;
+      
+      // Pulsating glow effect
+      if (materials) {
+        Object.values(materials).forEach(material => {
+          if (material instanceof THREE.Material) {
+            const pulseIntensity = Math.sin(state.clock.getElapsedTime() * 2) * 0.2 + 0.8;
+            material.emissiveIntensity = hovered ? pulseIntensity : 0.5;
+          }
+        });
+      }
       
       // Camera interaction
       if (clicked) {
@@ -85,41 +113,54 @@ const HolographicAvatar = () => {
         position={[0, -1, 0]}
       />
       
-      {/* Dynamic lighting based on interaction */}
-      <ambientLight intensity={hovered ? 0.7 : 0.5} />
+      {/* Enhanced dynamic lighting system */}
+      <ambientLight intensity={hovered ? 0.8 : 0.6} />
       
-      {/* Main key light */}
+      {/* Primary glow light */}
       <pointLight
         position={[2, 2, 2]}
         color={hovered ? "#00FFFF" : "#9D00FF"}
-        intensity={hovered ? 2.5 : 2}
-        distance={10}
+        intensity={hovered ? 3 : 2}
+        distance={12}
+        decay={2}
       />
       
-      {/* Fill light */}
+      {/* Secondary glow light */}
       <pointLight
         position={[-2, -1, -2]}
         color={hovered ? "#9D00FF" : "#00FFFF"}
-        intensity={hovered ? 2 : 1.5}
-        distance={8}
+        intensity={hovered ? 2.5 : 1.8}
+        distance={10}
+        decay={2}
       />
       
-      {/* Rim light */}
+      {/* Accent rim light */}
       <pointLight
         position={[0, 0, -3]}
         color="#FFFFFF"
-        intensity={hovered ? 1.5 : 1}
-        distance={5}
+        intensity={hovered ? 2 : 1.5}
+        distance={8}
+        decay={2}
       />
       
-      {/* Interactive glow effect */}
+      {/* Interactive volumetric glow */}
       {hovered && (
-        <pointLight
-          position={[0, 0, 2]}
-          color="#00FFFF"
-          intensity={2}
-          distance={3}
-        />
+        <>
+          <pointLight
+            position={[0, 0, 2]}
+            color="#00FFFF"
+            intensity={3}
+            distance={5}
+            decay={2}
+          />
+          <pointLight
+            position={[0, 2, 0]}
+            color="#9D00FF"
+            intensity={2.5}
+            distance={4}
+            decay={2}
+          />
+        </>
       )}
     </animated.group>
   );
