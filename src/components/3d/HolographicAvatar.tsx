@@ -1,18 +1,17 @@
 import { useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { MeshDistortMaterial } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 
 const HolographicAvatar = () => {
-  const meshRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
   const { camera, pointer } = useThree();
   const [rotationSpeed, setRotationSpeed] = useState({ x: 0, y: 0 });
   
-  const { scene } = useGLTF('/assets/central_brain_of_mankind_cml.glb');
-  
+  // Interactive animations with mouse tracking
   const springs = useSpring({
     scale: clicked ? [1.15, 1.15, 1.15] : hovered ? [1.05, 1.05, 1.05] : [1.0, 1.0, 1.0],
     rotation: [
@@ -41,6 +40,7 @@ const HolographicAvatar = () => {
       } else {
         meshRef.current.rotation.x *= 0.95;
         meshRef.current.rotation.y *= 0.95;
+        meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.2;
       }
       
       if (clicked) {
@@ -76,11 +76,61 @@ const HolographicAvatar = () => {
       }}
       position={[0, 0, 0]}
     >
-      <primitive 
-        ref={meshRef}
-        object={scene.clone()} 
-        scale={0.5}
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[1.08, 64, 64]} />
+        <MeshDistortMaterial
+          color="#9D00FF"
+          distort={0.4}
+          speed={2}
+          transparent
+          opacity={0.9}
+          metalness={1}
+          roughness={0.3}
+          emissive={hovered ? "#00FFFF" : "#9D00FF"}
+          emissiveIntensity={hovered ? 0.8 : 0.5}
+        />
+      </mesh>
+      
+      {/* Enhanced dynamic lighting system */}
+      <ambientLight intensity={hovered ? 0.8 : 0.6} />
+      
+      {/* Primary glow light */}
+      <pointLight
+        position={[2, 2, 2]}
+        color={hovered ? "#00FFFF" : "#9D00FF"}
+        intensity={hovered ? 3 : 2}
+        distance={12}
+        decay={2}
       />
+      
+      {/* Secondary glow light */}
+      <pointLight
+        position={[-2, -1, -2]}
+        color={hovered ? "#9D00FF" : "#00FFFF"}
+        intensity={hovered ? 2.5 : 1.8}
+        distance={10}
+        decay={2}
+      />
+      
+      {/* Interactive volumetric glow */}
+      {hovered && (
+        <>
+          <pointLight
+            position={[0, 0, 2]}
+            color="#00FFFF"
+            intensity={3}
+            distance={5}
+            decay={2}
+          />
+          <pointLight
+            position={[0, 2, 0]}
+            color="#9D00FF"
+            intensity={2.5}
+            distance={4}
+            decay={2}
+          />
+        </>
+      )}
     </animated.group>
   );
 };
