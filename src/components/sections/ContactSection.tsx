@@ -1,9 +1,7 @@
-import { useState, useRef, lazy, Suspense } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { Send, MapPin, AtSign, Phone, Linkedin, Clock, CheckCircle, ExternalLink } from 'lucide-react';
-
-const AI3DCanvas = lazy(() => import('../3d/AI3DCanvas'));
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -64,7 +62,7 @@ const ContactSection = () => {
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left Column - Quick Connect & Visual */}
+          {/* Left Column - Quick Connect */}
           <motion.div
             className="lg:col-span-4 space-y-8"
             initial={{ opacity: 0, x: -30 }}
@@ -146,17 +144,6 @@ const ContactSection = () => {
                   <span>{benefit}</span>
                 </div>
               ))}
-            </div>
-
-            {/* 3D Visual */}
-            <div className="h-48 bg-deep-space/20 rounded-xl border border-neon-blue/20 overflow-hidden">
-              <Suspense fallback={
-                <div className="h-full flex items-center justify-center">
-                  <div className="w-12 h-12 border-2 border-neon-cyan/30 rounded-full animate-spin"></div>
-                </div>
-              }>
-                <AI3DCanvas className="w-full h-full" />
-              </Suspense>
             </div>
           </motion.div>
 
