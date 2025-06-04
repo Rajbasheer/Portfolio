@@ -12,8 +12,25 @@ const HolographicAvatar = () => {
   const [rotationSpeed, setRotationSpeed] = useState({ x: 0, y: 0 });
   
   const { scene } = useGLTF('/assets/central_brain_of_mankind_cml.glb');
+
+  // Apply metallic material to the model
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.material = new THREE.MeshStandardMaterial({
+          color: '#9D00FF',
+          metalness: 0.9,
+          roughness: 0.1,
+          envMapIntensity: 1,
+          transparent: true,
+          opacity: 0.9,
+          emissive: hovered ? '#00FFFF' : '#9D00FF',
+          emissiveIntensity: hovered ? 0.8 : 0.5,
+        });
+      }
+    });
+  }, [scene, hovered]);
   
-  // Interactive animations with mouse tracking
   const springs = useSpring({
     scale: clicked ? [2.3, 2.3, 2.3] : hovered ? [2.1, 2.1, 2.1] : [2.0, 2.0, 2.0],
     rotation: [
