@@ -64,7 +64,7 @@ const projects: Project[] = [
     technologies: ['Python', 'LangChain', 'RAG', 'FastAPI'],
     image: 'https://images.pexels.com/photos/5483077/pexels-photo-5483077.jpeg',
     company: 'Personal Project',
-    year: '2024',
+    year: '2025',
     impact: 'Automated job tracking, AI-powered insights'
   },
   {

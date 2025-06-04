@@ -150,7 +150,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           >
             <div className="flex items-center gap-2 text-neon-cyan hover:text-white transition-colors duration-300">
               <span className="text-sm font-semibold">
-                {project.liveUrl ? 'VIEW LIVE PROJECT' : 'VIEW DETAILS'}
+                {project.liveUrl ? 'VIEW LIVE PROJECT' : 'Gearing up to go LIVE'}
               </span>
               <ArrowUpRight size={16} />
             </div>
