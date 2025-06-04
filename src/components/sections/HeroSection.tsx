@@ -194,7 +194,7 @@ const HeroSection = () => {
               <div className="w-6 h-6 bg-neon-purple/30 rounded-full border border-neon-purple/50"></div>
               <div className="w-6 h-6 bg-white/30 rounded-full border border-white/50"></div>
             </div>
-            <span>Trusted by Fortune 500 companies</span>
+            <a href='Rajbasheer_baig_mogal_Resume.pdf'>Take a peak at my resume</a>
           </div>
         </motion.div>
       </div>

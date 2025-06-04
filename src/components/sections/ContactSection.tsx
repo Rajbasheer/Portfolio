@@ -36,7 +36,7 @@ const ContactSection = () => {
     setErrorMessage('');
 
     try {
-      const publicKey = import.meta.env.EMAILJS_PUBLIC_KEY;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       if (!publicKey) {
         throw new Error('EmailJS public key is not configured');
       }
@@ -144,7 +144,7 @@ const ContactSection = () => {
             </div>
 
             <motion.a
-              href="https://linkedin.com/in/rajbasheerbaig-mogal/"
+              href="https://linkedin.com/in/rajbasheer/"
               target="_blank"
               rel="noopener noreferrer"
               className="block p-3 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
@@ -166,7 +166,7 @@ const ContactSection = () => {
             <div className="p-3 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
               <div className="flex items-center gap-2 mb-1">
                 <MapPin size={16} className="text-neon-purple" />
-                <span className="text-white font-medium text-sm">Harrison, NJ</span>
+                <span className="text-white font-medium text-sm">New York Metropolitan Area</span>
               </div>
               <div className="text-xs text-white/70">Remote & On-site Available</div>
             </div>
