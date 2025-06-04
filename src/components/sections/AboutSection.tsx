@@ -1,7 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { Shield, Database, Sparkles, Brain, Code, Cloud, Award, MapPin } from 'lucide-react';
+import { useAppContext } from '../../context/AppContext';
 
 const skills = [
   { name: 'AI/ML & Gen-AI Development', icon: Brain, value: 95, highlight: true },
@@ -14,23 +14,36 @@ const skills = [
 
 const AboutSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const { activeSection } = useAppContext();
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  
+  // Simple animation trigger when section becomes active
+  useEffect(() => {
+    if (activeSection === 'about') {
+      // Small delay to ensure smooth transition
+      const timer = setTimeout(() => {
+        setShouldAnimate(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    } else {
+      setShouldAnimate(false);
+    }
+  }, [activeSection]);
   
   return (
     <motion.section
       ref={ref}
       className="section-container"
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
     >
       <div className="content-wrapper">
         <div className="responsive-grid">
           <div>
             <motion.h2
               className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text"
-              initial={{ x: -50 }}
-              animate={isInView ? { x: 0 } : { x: -50 }}
+              initial={{ x: -30, opacity: 0 }}
+              animate={shouldAnimate ? { x: 0, opacity: 1 } : { x: -30, opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
               WHY COMPANIES CHOOSE ME
@@ -39,8 +52,8 @@ const AboutSection = () => {
             <motion.div
               className="space-y-4 text-white/80"
               initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              animate={shouldAnimate ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
               <p className="text-base leading-relaxed">
                 Senior Backend Engineer with <span className="text-neon-cyan font-semibold">6+ years</span> of experience specializing in building scalable, cloud-native applications and LLM-powered AI systems. Expert in Python, FastAPI, TensorFlow, PyTorch, and LangChain with hands-on expertise in Generative AI and Retrieval-Augmented Generation (RAG).
@@ -80,8 +93,8 @@ const AboutSection = () => {
           <div>
             <motion.h3
               className="text-xl md:text-2xl font-bold mb-6 text-neon-cyan"
-              initial={{ x: 50 }}
-              animate={isInView ? { x: 0 } : { x: 50 }}
+              initial={{ x: 30, opacity: 0 }}
+              animate={shouldAnimate ? { x: 0, opacity: 1 } : { x: 30, opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
               TECHNICAL EXPERTISE
@@ -96,8 +109,8 @@ const AboutSection = () => {
                     key={skill.name}
                     className="relative"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ duration: 0.5, delay: 0.1 * index }}
+                    animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
@@ -124,8 +137,8 @@ const AboutSection = () => {
                             : 'bg-gradient-to-r from-neon-cyan to-neon-purple'
                         }`}
                         initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.value}%` } : { width: 0 }}
-                        transition={{ duration: 1, delay: 0.3 + index * 0.1 }}
+                        animate={shouldAnimate ? { width: `${skill.value}%` } : { width: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
                       />
                     </div>
                   </motion.div>
@@ -136,7 +149,7 @@ const AboutSection = () => {
             <motion.div
               className="mt-6 p-4 bg-neon-purple/10 rounded-lg border border-neon-purple/20"
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={shouldAnimate ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
               <h4 className="text-neon-purple font-semibold text-base mb-3">Key Technologies</h4>
