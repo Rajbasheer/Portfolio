@@ -72,9 +72,9 @@ const HolographicAvatar = () => {
     }
   }, [materials, textures, hovered]);
 
-  // Interactive animations
+  // Interactive animations with increased base scale (3x)
   const springs = useSpring({
-    scale: clicked ? [1.8, 1.8, 1.8] : hovered ? [1.6, 1.6, 1.6] : [1.5, 1.5, 1.5],
+    scale: clicked ? [4.8, 4.8, 4.8] : hovered ? [4.6, 4.6, 4.6] : [4.5, 4.5, 4.5], // Increased from 1.5-1.8 to 4.5-4.8
     rotation: clicked ? [0, Math.PI * 2, 0] : [0, 0, 0],
     config: { mass: 2, tension: 280, friction: 60 },
   });
@@ -105,11 +105,11 @@ const HolographicAvatar = () => {
         });
       }
       
-      // Camera interaction
+      // Adjusted camera position for larger model
       if (clicked) {
-        camera.position.lerp(new THREE.Vector3(0, 0, 4), 0.1);
+        camera.position.lerp(new THREE.Vector3(0, 0, 12), 0.1); // Increased from 4 to 12
       } else {
-        camera.position.lerp(new THREE.Vector3(0, 0, 5), 0.1);
+        camera.position.lerp(new THREE.Vector3(0, 0, 15), 0.1); // Increased from 5 to 15
       }
     }
   });
@@ -124,7 +124,7 @@ const HolographicAvatar = () => {
     >
       <primitive 
         object={nodes.Scene}
-        position={[0, -1, 0]}
+        position={[0, -3, 0]} // Adjusted Y position for larger scale
       />
       
       {/* Enhanced dynamic lighting system */}
@@ -132,28 +132,28 @@ const HolographicAvatar = () => {
       
       {/* Primary glow light */}
       <pointLight
-        position={[2, 2, 2]}
+        position={[6, 6, 6]} // Increased from [2, 2, 2] for larger model
         color={hovered ? "#00FFFF" : "#9D00FF"}
         intensity={hovered ? 3 : 2}
-        distance={12}
+        distance={36} // Increased from 12 for larger model
         decay={2}
       />
       
       {/* Secondary glow light */}
       <pointLight
-        position={[-2, -1, -2]}
+        position={[-6, -3, -6]} // Increased from [-2, -1, -2] for larger model
         color={hovered ? "#9D00FF" : "#00FFFF"}
         intensity={hovered ? 2.5 : 1.8}
-        distance={10}
+        distance={30} // Increased from 10 for larger model
         decay={2}
       />
       
       {/* Accent rim light */}
       <pointLight
-        position={[0, 0, -3]}
+        position={[0, 0, -9]} // Increased from [0, 0, -3] for larger model
         color="#FFFFFF"
         intensity={hovered ? 2 : 1.5}
-        distance={8}
+        distance={24} // Increased from 8 for larger model
         decay={2}
       />
       
@@ -161,17 +161,17 @@ const HolographicAvatar = () => {
       {hovered && (
         <>
           <pointLight
-            position={[0, 0, 2]}
+            position={[0, 0, 6]} // Increased from [0, 0, 2] for larger model
             color="#00FFFF"
             intensity={3}
-            distance={5}
+            distance={15} // Increased from 5 for larger model
             decay={2}
           />
           <pointLight
-            position={[0, 2, 0]}
+            position={[0, 6, 0]} // Increased from [0, 2, 0] for larger model
             color="#9D00FF"
             intensity={2.5}
-            distance={4}
+            distance={12} // Increased from 4 for larger model
             decay={2}
           />
         </>
