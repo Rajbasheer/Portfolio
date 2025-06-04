@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { useAppContext } from '../../context/AppContext';
 import FloatingGrid from '../3d/FloatingGrid';
-import AIBrainModel from '../3d/AIBrainModel';
+import HolographicAvatar from '../3d/HolographicAvatar';
 import { ArrowRight, Award, TrendingUp, Users, Zap } from 'lucide-react';
 
 const HeroSection = () => {
@@ -205,7 +205,7 @@ const HeroSection = () => {
           <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} intensity={0.8} color="#9D00FF" />
           <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00FFFF" />
-          <AIBrainModel />
+          <HolographicAvatar />
           <FloatingGrid />
         </Canvas>
       </div>
