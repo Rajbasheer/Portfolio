@@ -1,15 +1,17 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { MeshDistortMaterial } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 
 const HolographicAvatar = () => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
   const { camera, pointer } = useThree();
   const [rotationSpeed, setRotationSpeed] = useState({ x: 0, y: 0 });
+  
+  const { scene } = useGLTF('/assets/central_brain_of_mankind_cml.glb');
   
   // Interactive animations with mouse tracking
   const springs = useSpring({
@@ -22,35 +24,28 @@ const HolographicAvatar = () => {
     config: { 
       mass: 2, 
       tension: 280, 
-      friction: hovered ? 20 : 40 // Lower friction for smoother rotation
+      friction: hovered ? 20 : 40
     }
   });
   
-  // Enhanced animation with mouse interaction
   useFrame((state) => {
     if (meshRef.current) {
-      // Get normalized mouse position
       const mouseX = (pointer.x * state.viewport.width) / 2;
       const mouseY = (pointer.y * state.viewport.height) / 2;
       
       if (hovered) {
-        // Smooth rotation based on mouse movement
         rotationSpeed.x = (mouseY - (meshRef.current.rotation.x * 180 / Math.PI)) * 0.1;
         rotationSpeed.y = (mouseX - (meshRef.current.rotation.y * 180 / Math.PI)) * 0.1;
         
         meshRef.current.rotation.x += rotationSpeed.x * 0.01;
         meshRef.current.rotation.y += rotationSpeed.y * 0.01;
-        
-        // Add slight floating motion
         meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1;
       } else {
-        // Smooth return to initial position
         meshRef.current.rotation.x *= 0.95;
         meshRef.current.rotation.y *= 0.95;
         meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.2;
       }
       
-      // Camera interaction
       if (clicked) {
         camera.position.lerp(new THREE.Vector3(mouseX / 2, mouseY / 2, 4), 0.1);
       } else {
@@ -84,20 +79,11 @@ const HolographicAvatar = () => {
       }}
       position={[0, 0, 0]}
     >
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[1.2, 64, 64]} />
-        <MeshDistortMaterial
-          color="#9D00FF"
-          distort={0.4}
-          speed={2}
-          transparent
-          opacity={0.9}
-          metalness={1}
-          roughness={0.3}
-          emissive={hovered ? "#00FFFF" : "#9D00FF"}
-          emissiveIntensity={hovered ? 0.8 : 0.5}
-        />
-      </mesh>
+      <primitive 
+        ref={meshRef}
+        object={scene.clone()} 
+        scale={0.5}
+      />
       
       {/* Enhanced dynamic lighting system */}
       <ambientLight intensity={hovered ? 0.8 : 0.6} />

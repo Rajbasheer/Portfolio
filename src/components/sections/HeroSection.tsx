@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { useAppContext } from '../../context/AppContext';
@@ -204,7 +204,9 @@ const HeroSection = () => {
           <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} intensity={0.8} color="#9D00FF" />
           <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00FFFF" />
-          <HolographicAvatar />
+          <Suspense fallback={null}>
+            <HolographicAvatar />
+          </Suspense>
         </Canvas>
       </div>
     </motion.div>
