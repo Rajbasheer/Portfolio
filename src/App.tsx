@@ -60,8 +60,7 @@ const MainContent = () => {
         className={`section-wrapper ${activeSection === 'home' ? 'section-active' : 'section-inactive'}`}
         animate={{
           opacity: activeSection === 'home' ? 1 : 0,
-          pointerEvents: activeSection === 'home' ? 'auto' : 'none',
-          zIndex: activeSection === 'home' ? 10 : 1
+          pointerEvents: activeSection === 'home' ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
@@ -73,8 +72,7 @@ const MainContent = () => {
         className={`section-wrapper ${activeSection === 'about' ? 'section-active' : 'section-inactive'}`}
         animate={{
           opacity: activeSection === 'about' ? 1 : 0,
-          pointerEvents: activeSection === 'about' ? 'auto' : 'none',
-          zIndex: activeSection === 'about' ? 10 : 1
+          pointerEvents: activeSection === 'about' ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
@@ -86,8 +84,7 @@ const MainContent = () => {
         className={`section-wrapper ${activeSection === 'projects' ? 'section-active' : 'section-inactive'}`}
         animate={{
           opacity: activeSection === 'projects' ? 1 : 0,
-          pointerEvents: activeSection === 'projects' ? 'auto' : 'none',
-          zIndex: activeSection === 'projects' ? 10 : 1
+          pointerEvents: activeSection === 'projects' ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
@@ -99,8 +96,7 @@ const MainContent = () => {
         className={`section-wrapper ${activeSection === 'contact' ? 'section-active' : 'section-inactive'}`}
         animate={{
           opacity: activeSection === 'contact' ? 1 : 0,
-          pointerEvents: activeSection === 'contact' ? 'auto' : 'none',
-          zIndex: activeSection === 'contact' ? 10 : 1
+          pointerEvents: activeSection === 'contact' ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
