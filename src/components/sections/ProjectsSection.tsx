@@ -34,7 +34,7 @@ const projects: Project[] = [
     image: 'https://images.pexels.com/photos/8439093/pexels-photo-8439093.jpeg',
     company: 'Vitel Global',
     year: '2024',
-    liveUrl: 'https://app.avatarchatbots.ai/',
+    liveUrl: 'https://avatarchatbots.ai/',
     impact: '45% higher engagement, 50% faster responses'
   },
   {
