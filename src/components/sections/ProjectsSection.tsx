@@ -160,103 +160,107 @@ const ProjectsSection = () => {
   return (
     <motion.section
       ref={ref}
-      className="h-screen flex flex-col p-4 md:p-6 overflow-hidden"
+      className="section-container"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Compact Header */}
-      <motion.div
-        className="mb-6"
-        initial={{ y: -20, opacity: 0 }}
-        animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">
-          REVENUE-GENERATING PROJECTS
-        </h2>
-        <p className="text-sm md:text-base text-white/70 mb-4">
-          AI solutions that deliver measurable business impact and ROI
-        </p>
-        
-        {/* Compact Impact Summary */}
-        <div className="grid grid-cols-4 gap-2 md:gap-4">
-          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
-            <div className="text-neon-cyan font-bold text-sm md:text-lg">10K+</div>
-            <div className="text-xs text-white/70">Calls Handled</div>
-          </div>
-          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-purple/20 rounded-lg p-2 md:p-3 text-center">
-            <div className="text-neon-purple font-bold text-sm md:text-lg">99.9%</div>
-            <div className="text-xs text-white/70">Uptime</div>
-          </div>
-          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
-            <div className="text-neon-cyan font-bold text-sm md:text-lg">60%</div>
-            <div className="text-xs text-white/70">Cost Cut</div>
-          </div>
-          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-purple/20 rounded-lg p-2 md:p-3 text-center">
-            <div className="text-neon-purple font-bold text-sm md:text-lg">3×</div>
-            <div className="text-xs text-white/70">Efficiency</div>
-          </div>
-        </div>
-      </motion.div>
-      
-      {/* Projects Container */}
-      <div className="flex-1 relative">
+      <div className="content-wrapper">
+        {/* Header */}
         <motion.div
-          ref={scrollRef}
-          className="flex overflow-x-auto space-x-4 snap-x snap-mandatory scroll-smooth h-full pb-16 hide-scrollbar"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch'
-          }}
+          className="mb-6"
+          initial={{ y: -20, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          {projects.map((project, index) => (
-            <div 
-              key={project.id} 
-              className={`flex-none snap-center transition-all duration-300`}
-              style={{ width: `calc(100% / ${visibleProjects})` }}
-            >
-              <ProjectCard
-                project={project}
-                index={index}
-              />
+          <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">
+            REVENUE-GENERATING PROJECTS
+          </h2>
+          <p className="text-sm md:text-base text-white/70 mb-4">
+            AI solutions that deliver measurable business impact and ROI
+          </p>
+          
+          {/* Impact Summary */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+            <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
+              <div className="text-neon-cyan font-bold text-sm md:text-lg">10K+</div>
+              <div className="text-xs text-white/70">Calls Handled</div>
             </div>
-          ))}
+            <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-purple/20 rounded-lg p-2 md:p-3 text-center">
+              <div className="text-neon-purple font-bold text-sm md:text-lg">99.9%</div>
+              <div className="text-xs text-white/70">Uptime</div>
+            </div>
+            <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
+              <div className="text-neon-cyan font-bold text-sm md:text-lg">60%</div>
+              <div className="text-xs text-white/70">Cost Cut</div>
+            </div>
+            <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-purple/20 rounded-lg p-2 md:p-3 text-center">
+              <div className="text-neon-purple font-bold text-sm md:text-lg">3×</div>
+              <div className="text-xs text-white/70">Efficiency</div>
+            </div>
+          </div>
         </motion.div>
-
-        {/* Navigation Controls */}
-        <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-center gap-3">
-          <motion.button
-            onClick={() => handleScrollDirection('left')}
-            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-              canScrollLeft 
-                ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
-                : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
-            }`}
-            disabled={!canScrollLeft}
-            whileHover={canScrollLeft ? { scale: 1.1 } : {}}
-            whileTap={canScrollLeft ? { scale: 0.95 } : {}}
+        
+        {/* Projects Container */}
+        <div className="relative flex-1">
+          <motion.div
+            ref={scrollRef}
+            className="projects-grid"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}
           >
-            <ArrowLeft size={18} />
-          </motion.button>
+            {projects.map((project, index) => (
+              <motion.div 
+                key={project.id}
+                className="snap-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ProjectCard
+                  project={project}
+                  index={index}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
 
-          <motion.button
-            onClick={() => handleScrollDirection('right')}
-            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-              canScrollRight 
-                ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
-                : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
-            }`}
-            disabled={!canScrollRight}
-            whileHover={canScrollRight ? { scale: 1.1 } : {}}
-            whileTap={canScrollRight ? { scale: 0.95 } : {}}
-          >
-            <ArrowRight size={18} />
-          </motion.button>
+          {/* Navigation Controls */}
+          <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-center gap-3">
+            <motion.button
+              onClick={() => handleScrollDirection('left')}
+              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+                canScrollLeft 
+                  ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
+                  : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
+              }`}
+              disabled={!canScrollLeft}
+              whileHover={canScrollLeft ? { scale: 1.1 } : {}}
+              whileTap={canScrollLeft ? { scale: 0.95 } : {}}
+            >
+              <ArrowLeft size={18} />
+            </motion.button>
+
+            <motion.button
+              onClick={() => handleScrollDirection('right')}
+              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
+                canScrollRight 
+                  ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
+                  : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
+              }`}
+              disabled={!canScrollRight}
+              whileHover={canScrollRight ? { scale: 1.1 } : {}}
+              whileTap={canScrollRight ? { scale: 0.95 } : {}}
+            >
+              <ArrowRight size={18} />
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.section>
