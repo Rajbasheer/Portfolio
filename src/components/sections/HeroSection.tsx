@@ -201,7 +201,7 @@ const HeroSection = () => {
       
       <div className="md:w-1/2 h-[40vh] md:h-[60vh] z-0 md:order-2 order-1 mb-8 md:mb-0 flex items-center justify-center">
         <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
-          <ambientLight intensity={0.2} />
+          <ambientLight intensity={0.5} />
           <pointLight position={[5, 5, 5]} intensity={1.2} color="#00FFFF" />
           <pointLight position={[-5, -5, -5]} intensity={0.8} color="#9D00FF" />
           <spotLight
