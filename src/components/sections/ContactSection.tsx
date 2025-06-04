@@ -36,7 +36,7 @@ const ContactSection = () => {
     setErrorMessage('');
 
     try {
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const publicKey = import.meta.env.EMAILJS_PUBLIC_KEY;
       if (!publicKey) {
         throw new Error('EmailJS public key is not configured');
       }
