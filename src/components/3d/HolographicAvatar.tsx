@@ -72,9 +72,9 @@ const HolographicAvatar = () => {
     }
   }, [materials, textures, hovered]);
 
-  // Interactive animations
+  // Interactive animations with increased base size
   const springs = useSpring({
-    scale: clicked ? [1.8, 1.8, 1.8] : hovered ? [1.6, 1.6, 1.6] : [1.5, 1.5, 1.5],
+    scale: clicked ? [2.3, 2.3, 2.3] : hovered ? [2.1, 2.1, 2.1] : [2.0, 2.0, 2.0], // Increased from 1.5 to 2.0
     rotation: clicked ? [0, Math.PI * 2, 0] : [0, 0, 0],
     config: { mass: 2, tension: 280, friction: 60 },
   });
