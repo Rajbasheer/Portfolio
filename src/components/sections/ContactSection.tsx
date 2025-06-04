@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { Send, MapPin, AtSign, Phone, Linkedin, Clock, CheckCircle, ExternalLink } from 'lucide-react';
+import { Send, MapPin, AtSign, Phone, Linkedin, CheckCircle, ExternalLink } from 'lucide-react';
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -53,11 +53,6 @@ const ContactSection = () => {
           <p className="text-base md:text-lg text-white/80 max-w-2xl">
             Ready to 10X your capabilities? Get your free AI strategy session.
           </p>
-          
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-neon-cyan/20 to-neon-purple/20 backdrop-blur-sm border border-neon-cyan/30 rounded-full px-3 py-2 mt-4">
-            <Clock size={14} className="text-neon-cyan animate-pulse" />
-            <span className="text-xs md:text-sm text-white font-medium">Available Now • Response in 4 Hours</span>
-          </div>
         </motion.div>
 
         {/* Main Content Grid */}
@@ -101,7 +96,7 @@ const ContactSection = () => {
                   </div>
                   <div className="flex-1">
                     <div className="text-white font-semibold text-sm">Email Direct</div>
-                    <div className="text-xs text-white/70">4hr response</div>
+                    <div className="text-xs text-white/70">Quick Response</div>
                   </div>
                   <ExternalLink size={14} className="text-neon-cyan" />
                 </div>
@@ -138,7 +133,7 @@ const ContactSection = () => {
 
             {/* Benefits */}
             <div className="grid grid-cols-1 gap-2">
-              {['Free consultation', '24-48hr response', 'Proven ROI results'].map((benefit, index) => (
+              {['Free consultation', 'Proven ROI results', 'Enterprise solutions'].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-2 text-xs text-white/80">
                   <CheckCircle size={12} className="text-neon-cyan" />
                   <span>{benefit}</span>
@@ -250,7 +245,7 @@ const ContactSection = () => {
                     <CheckCircle size={14} className="text-neon-cyan" />
                     <div>
                       <h4 className="font-bold text-white text-xs">Request Received!</h4>
-                      <p className="text-xs text-white/80">I'll respond within 4 hours.</p>
+                      <p className="text-xs text-white/80">We'll get back to you shortly.</p>
                     </div>
                   </div>
                 </motion.div>
