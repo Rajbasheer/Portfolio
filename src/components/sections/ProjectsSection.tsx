@@ -97,6 +97,7 @@ const ProjectsSection = () => {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [visibleProjects, setVisibleProjects] = useState(3);
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -107,6 +108,25 @@ const ProjectsSection = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setVisibleProjects(1);
+      } else if (width < 1024) {
+        setVisibleProjects(2);
+      } else if (width < 1280) {
+        setVisibleProjects(3);
+      } else {
+        setVisibleProjects(4);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleScroll = () => {
     if (scrollRef.current) {
@@ -127,7 +147,7 @@ const ProjectsSection = () => {
 
   const handleScrollDirection = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const cardWidth = 280; // Fixed smaller width
+      const cardWidth = scrollRef.current.clientWidth / visibleProjects;
       const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
       
       scrollRef.current.scrollBy({
@@ -180,11 +200,11 @@ const ProjectsSection = () => {
         </div>
       </motion.div>
       
-      {/* Projects Container - Takes remaining height */}
+      {/* Projects Container */}
       <div className="flex-1 relative">
         <motion.div
           ref={scrollRef}
-          className="flex overflow-x-auto space-x-3 md:space-x-4 snap-x snap-mandatory scroll-smooth h-full pb-12 hide-scrollbar"
+          className="flex overflow-x-auto space-x-4 snap-x snap-mandatory scroll-smooth h-full pb-16 hide-scrollbar"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -197,7 +217,8 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              className="flex-none snap-center w-64 md:w-72"
+              className={`flex-none snap-center transition-all duration-300`}
+              style={{ width: `calc(100% / ${visibleProjects})` }}
             >
               <ProjectCard
                 project={project}
@@ -208,7 +229,7 @@ const ProjectsSection = () => {
         </motion.div>
 
         {/* Navigation Controls */}
-        <div className="absolute left-1/2 -bottom-2 transform -translate-x-1/2 flex items-center gap-3">
+        <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-center gap-3">
           <motion.button
             onClick={() => handleScrollDirection('left')}
             className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
