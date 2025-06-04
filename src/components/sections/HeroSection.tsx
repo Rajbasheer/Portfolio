@@ -9,6 +9,7 @@ const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { setActiveSection } = useAppContext();
   const [currentMetric, setCurrentMetric] = useState(0);
+  const [show3D, setShow3D] = useState(false);
   
   const metrics = [
     { value: "60%", label: "Reduction in Manual Work", icon: TrendingUp },
@@ -23,13 +24,22 @@ const HeroSection = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  // Delay 3D rendering to improve initial section load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow3D(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
   
+  // Simplified animations for better performance
   const headingVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0, 
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.5, ease: 'easeOut' } // Simplified easing
     }
   };
   
@@ -37,7 +47,7 @@ const HeroSection = () => {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1, 
-      transition: { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.5, delay: 0.2, ease: 'easeOut' }
     }
   };
   
@@ -46,11 +56,12 @@ const HeroSection = () => {
     visible: { 
       opacity: 1, 
       y: 0, 
-      transition: { duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.5, delay: 0.4, ease: 'easeOut' }
     },
     hover: { 
       scale: 1.05,
-      backgroundColor: "rgba(157, 0, 255, 0.3)"
+      backgroundColor: "rgba(157, 0, 255, 0.3)",
+      transition: { duration: 0.2 }
     },
     tap: { scale: 0.95 }
   };
@@ -61,14 +72,14 @@ const HeroSection = () => {
       className="min-h-screen flex flex-col md:flex-row items-center justify-center p-4 relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.5 }}
     >
       {/* Floating Achievement Badge */}
       <motion.div
         className="absolute top-20 right-4 md:right-8 z-20"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
       >
         <div className="bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 backdrop-blur-md border border-neon-cyan/30 rounded-lg p-3">
           <div className="flex items-center gap-2 mb-1">
@@ -80,6 +91,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
             className="text-center"
           >
             <div className="text-lg font-bold text-neon-cyan">{metrics[currentMetric].value}</div>
@@ -141,7 +153,7 @@ const HeroSection = () => {
           className="grid grid-cols-2 gap-4 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.4 }}
         >
           <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg p-3">
             <div className="text-neon-cyan font-bold text-lg">40%</div>
@@ -186,7 +198,7 @@ const HeroSection = () => {
           className="mt-8 flex items-center gap-6 text-sm text-white/60"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 1, duration: 0.5 }}
         >
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
@@ -199,22 +211,30 @@ const HeroSection = () => {
         </motion.div>
       </div>
       
+      {/* Optimized 3D Section - Loads after initial content */}
       <div className="md:w-1/2 h-[40vh] md:h-[60vh] z-0 md:order-2 order-1 mb-8 md:mb-0 flex items-center justify-center">
-        <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[5, 5, 5]} intensity={2.0} color="#00FFFF" />
-          <pointLight position={[-5, -5, -5]} intensity={1.5} color="#9D00FF" />
-          <spotLight
-            position={[0, 5, 0]}
-            intensity={1.5}
-            angle={0.5}
-            penumbra={1}
-            color="#00FFFF"
-          />
-          <Suspense fallback={null}>
-            <HolographicAvatar />
-          </Suspense>
-        </Canvas>
+        {show3D ? (
+          <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
+            <ambientLight intensity={0.5} />
+            <pointLight position={[5, 5, 5]} intensity={2.0} color="#00FFFF" />
+            <pointLight position={[-5, -5, -5]} intensity={1.5} color="#9D00FF" />
+            <spotLight
+              position={[0, 5, 0]}
+              intensity={1.5}
+              angle={0.5}
+              penumbra={1}
+              color="#00FFFF"
+            />
+            <Suspense fallback={null}>
+              <HolographicAvatar />
+            </Suspense>
+          </Canvas>
+        ) : (
+          // Simple placeholder while 3D loads
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 animate-pulse" />
+          </div>
+        )}
       </div>
     </motion.div>
   );

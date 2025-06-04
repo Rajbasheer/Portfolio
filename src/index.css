@@ -134,3 +134,74 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Add these styles to your existing index.css */
+
+/* Section wrapper for always-mounted sections */
+.section-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Ensure sections stack properly */
+  isolation: isolate;
+}
+
+/* Active section styles */
+.section-active {
+  visibility: visible;
+}
+
+/* Inactive section styles */
+.section-inactive {
+  visibility: hidden;
+}
+
+/* Optimize image loading for preloaded assets */
+.preloaded-image {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.preloaded-image.loaded {
+  opacity: 1;
+}
+
+.preloaded-image.loading {
+  opacity: 0.7;
+}
+
+/* Performance optimizations */
+.section-wrapper * {
+  /* Optimize rendering performance */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Reduce motion for performance on slower devices */
+@media (prefers-reduced-motion: reduce) {
+  .section-wrapper {
+    transition: none !important;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize for mobile performance */
+@media (max-width: 768px) {
+  .section-wrapper {
+    /* Reduce GPU usage on mobile */
+    will-change: auto;
+  }
+}
+
+/* Ensure proper stacking context */
+.section-wrapper {
+  transform-style: preserve-3d;
+}
