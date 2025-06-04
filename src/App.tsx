@@ -114,30 +114,53 @@ function App() {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // Replace artificial delay with real asset loading check
+    let assetsLoaded = false;
+    let minTimeElapsed = false;
+    
+    // Function to finish loading when both conditions are met
+    const finishLoading = () => {
+      if (assetsLoaded && minTimeElapsed) {
+        setLoading(false);
+      }
+    };
+    
+    // Ensure minimum loading screen display time (for UX)
+    const minDisplayTimer = setTimeout(() => {
+      minTimeElapsed = true;
+      finishLoading();
+    }, 2000); // Show loading screen for at least 2 seconds
+    
+    // Real asset loading check
     const checkCriticalAssets = () => {
       // Check if critical fonts are loaded
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
-          setLoading(false);
+          assetsLoaded = true;
+          finishLoading();
         });
       } else {
-        // Fallback for older browsers - minimal delay
+        // Fallback for older browsers
         setTimeout(() => {
-          setLoading(false);
-        }, 1000); // Reduced from 3000ms to 500ms
+          assetsLoaded = true;
+          finishLoading();
+        }, 500);
       }
     };
 
     // Start checking assets immediately
     checkCriticalAssets();
     
-    // Backup timeout in case fonts never load
-    const backupTimer = setTimeout(() => {
+    // Maximum timeout as backup (if assets never load)
+    const maxTimer = setTimeout(() => {
+      assetsLoaded = true;
+      minTimeElapsed = true;
       setLoading(false);
-    }, 2000); // Maximum 2 seconds instead of 3
+    }, 4000); // Maximum 4 seconds as absolute fallback
     
-    return () => clearTimeout(backupTimer);
+    return () => {
+      clearTimeout(minDisplayTimer);
+      clearTimeout(maxTimer);
+    };
   }, []);
 
   return (
