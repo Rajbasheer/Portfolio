@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
@@ -12,24 +12,6 @@ const HolographicAvatar = () => {
   const [rotationSpeed, setRotationSpeed] = useState({ x: 0, y: 0 });
   
   const { scene } = useGLTF('/assets/central_brain_of_mankind_cml.glb');
-
-  // Apply metallic material to the model
-  useEffect(() => {
-    scene.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.material = new THREE.MeshStandardMaterial({
-          color: '#9D00FF',
-          metalness: 0.9,
-          roughness: 0.1,
-          envMapIntensity: 1,
-          transparent: true,
-          opacity: 0.9,
-          emissive: hovered ? '#00FFFF' : '#9D00FF',
-          emissiveIntensity: hovered ? 0.8 : 0.5,
-        });
-      }
-    });
-  }, [scene, hovered]);
   
   const springs = useSpring({
     scale: clicked ? [1.15, 1.15, 1.15] : hovered ? [1.05, 1.05, 1.05] : [1.0, 1.0, 1.0],
@@ -99,47 +81,6 @@ const HolographicAvatar = () => {
         object={scene.clone()} 
         scale={0.5}
       />
-      
-      {/* Enhanced dynamic lighting system */}
-      <ambientLight intensity={hovered ? 0.8 : 0.6} />
-      
-      {/* Primary glow light */}
-      <pointLight
-        position={[2, 2, 2]}
-        color={hovered ? "#00FFFF" : "#9D00FF"}
-        intensity={hovered ? 3 : 2}
-        distance={12}
-        decay={2}
-      />
-      
-      {/* Secondary glow light */}
-      <pointLight
-        position={[-2, -1, -2]}
-        color={hovered ? "#9D00FF" : "#00FFFF"}
-        intensity={hovered ? 2.5 : 1.8}
-        distance={10}
-        decay={2}
-      />
-      
-      {/* Interactive volumetric glow */}
-      {hovered && (
-        <>
-          <pointLight
-            position={[0, 0, 2]}
-            color="#00FFFF"
-            intensity={3}
-            distance={5}
-            decay={2}
-          />
-          <pointLight
-            position={[0, 2, 0]}
-            color="#9D00FF"
-            intensity={2.5}
-            distance={4}
-            decay={2}
-          />
-        </>
-      )}
     </animated.group>
   );
 };
