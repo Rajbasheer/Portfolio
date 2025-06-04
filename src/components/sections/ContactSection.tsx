@@ -34,7 +34,7 @@ const ContactSection = () => {
   return (
     <motion.section
       ref={ref}
-      className="min-h-screen flex items-center justify-center p-4 md:p-8"
+      className="min-h-screen flex items-center justify-center p-4 md:p-8 pt-24 md:pt-32"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
@@ -42,7 +42,7 @@ const ContactSection = () => {
       <div className="w-full max-w-7xl">
         {/* Header */}
         <motion.div
-          className="text-right mb-12"
+          className="text-left mb-12"
           initial={{ y: -30, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
           transition={{ duration: 0.5 }}
@@ -50,7 +50,7 @@ const ContactSection = () => {
           <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text">
             LET'S BUILD YOUR AI FUTURE
           </h2>
-          <p className="text-base md:text-lg text-white/80 max-w-2xl ml-auto">
+          <p className="text-base md:text-lg text-white/80 max-w-2xl">
             Ready to 10X your capabilities? Get your free AI strategy session.
           </p>
           
@@ -64,46 +64,46 @@ const ContactSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left Column - Quick Connect */}
           <motion.div
-            className="lg:col-span-4 space-y-8"
+            className="lg:col-span-3 space-y-6"
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Quick Connect Cards */}
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               <motion.a
                 href="tel:+18624052051"
-                className="block p-4 bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 backdrop-blur-sm border border-neon-purple/30 rounded-lg hover:border-neon-purple/50 transition-all duration-300 group"
+                className="block p-3 bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 backdrop-blur-sm border border-neon-purple/30 rounded-lg hover:border-neon-purple/50 transition-all duration-300 group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-neon-purple/30 rounded-full">
-                    <Phone size={20} className="text-white" />
+                    <Phone size={16} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-white font-semibold">Call Now</div>
-                    <div className="text-sm text-white/70">(862) 405-2051</div>
+                    <div className="text-white font-semibold text-sm">Call Now</div>
+                    <div className="text-xs text-white/70">(862) 405-2051</div>
                   </div>
-                  <ExternalLink size={16} className="text-neon-purple" />
+                  <ExternalLink size={14} className="text-neon-purple" />
                 </div>
               </motion.a>
 
               <motion.a
                 href="mailto:mrajbasheer@gmail.com"
-                className="block p-4 bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 backdrop-blur-sm border border-neon-cyan/30 rounded-lg hover:border-neon-cyan/50 transition-all duration-300 group"
+                className="block p-3 bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 backdrop-blur-sm border border-neon-cyan/30 rounded-lg hover:border-neon-cyan/50 transition-all duration-300 group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-neon-cyan/30 rounded-full">
-                    <AtSign size={20} className="text-white" />
+                    <AtSign size={16} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-white font-semibold">Email Direct</div>
-                    <div className="text-sm text-white/70">4hr response</div>
+                    <div className="text-white font-semibold text-sm">Email Direct</div>
+                    <div className="text-xs text-white/70">4hr response</div>
                   </div>
-                  <ExternalLink size={16} className="text-neon-cyan" />
+                  <ExternalLink size={14} className="text-neon-cyan" />
                 </div>
               </motion.a>
 
@@ -111,36 +111,36 @@ const ContactSection = () => {
                 href="https://linkedin.com/in/rajbasheerbaig-mogal/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-4 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
+                className="block p-3 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-neon-blue/30 rounded-full">
-                    <Linkedin size={20} className="text-white" />
+                    <Linkedin size={16} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-white font-semibold">LinkedIn</div>
-                    <div className="text-sm text-white/70">Professional network</div>
+                    <div className="text-white font-semibold text-sm">LinkedIn</div>
+                    <div className="text-xs text-white/70">Professional network</div>
                   </div>
-                  <ExternalLink size={16} className="text-neon-blue" />
+                  <ExternalLink size={14} className="text-neon-blue" />
                 </div>
               </motion.a>
 
-              <div className="p-4 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
+              <div className="p-3 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
                 <div className="flex items-center gap-2 mb-1">
-                  <MapPin size={20} className="text-neon-purple" />
-                  <span className="text-white font-medium">Harrison, NJ</span>
+                  <MapPin size={16} className="text-neon-purple" />
+                  <span className="text-white font-medium text-sm">Harrison, NJ</span>
                 </div>
-                <div className="text-sm text-white/70">Remote & On-site Available</div>
+                <div className="text-xs text-white/70">Remote & On-site Available</div>
               </div>
             </div>
 
             {/* Benefits */}
-            <div className="grid grid-cols-1 gap-3">
-              {['Free consultation', '24-48hr response', 'Proven ROI results', 'Custom solutions'].map((benefit, index) => (
-                <div key={index} className="flex items-center gap-2 text-sm text-white/80">
-                  <CheckCircle size={14} className="text-neon-cyan" />
+            <div className="grid grid-cols-1 gap-2">
+              {['Free consultation', '24-48hr response', 'Proven ROI results'].map((benefit, index) => (
+                <div key={index} className="flex items-center gap-2 text-xs text-white/80">
+                  <CheckCircle size={12} className="text-neon-cyan" />
                   <span>{benefit}</span>
                 </div>
               ))}
@@ -149,7 +149,7 @@ const ContactSection = () => {
 
           {/* Right Column - Form */}
           <motion.div
-            className="lg:col-span-8 bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6 md:p-8"
+            className="lg:col-span-9 bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -157,30 +157,32 @@ const ContactSection = () => {
             <h3 className="text-lg font-bold text-white mb-6">GET YOUR FREE AI STRATEGY SESSION</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-medium text-neon-blue mb-1">Your Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  className="w-full bg-deep-space/60 border border-neon-blue/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
-                  placeholder="Full name"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-xs font-medium text-neon-blue mb-1">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  className="w-full bg-deep-space/60 border border-neon-blue/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
-                  placeholder="your@email.com"
-                  required
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-neon-blue mb-1">Your Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleChange}
+                    className="w-full bg-deep-space/60 border border-neon-blue/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
+                    placeholder="Full name"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-xs font-medium text-neon-blue mb-1">Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    className="w-full bg-deep-space/60 border border-neon-blue/30 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-neon-cyan/50"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
               </div>
 
               <div>
@@ -215,10 +217,10 @@ const ContactSection = () => {
                 />
               </div>
 
-              <div className="flex flex-col gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <motion.button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-neon-cyan to-neon-purple px-4 py-3 rounded-lg text-deep-space font-bold text-sm"
+                  className="flex-1 bg-gradient-to-r from-neon-cyan to-neon-purple px-4 py-3 rounded-lg text-deep-space font-bold text-sm"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={formStatus === 'submitting'}
@@ -230,7 +232,7 @@ const ContactSection = () => {
 
                 <motion.a
                   href="tel:+18624052051"
-                  className="w-full text-center px-4 py-3 rounded-lg border-2 border-neon-purple text-neon-purple hover:bg-neon-purple/10 transition-all duration-300 font-bold text-sm"
+                  className="sm:w-1/3 text-center px-4 py-3 rounded-lg border-2 border-neon-purple text-neon-purple hover:bg-neon-purple/10 transition-all duration-300 font-bold text-sm"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
