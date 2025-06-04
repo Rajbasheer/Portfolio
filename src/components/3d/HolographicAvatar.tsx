@@ -1,90 +1,28 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, useTexture } from '@react-three/drei';
+import { MeshDistortMaterial } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 
 const HolographicAvatar = () => {
-  const meshRef = useRef<THREE.Group>(null);
-  const { nodes, materials } = useGLTF('/assests/mozgai.glb');
+  const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
   const { camera, pointer } = useThree();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [rotationSpeed, setRotationSpeed] = useState({ x: 0, y: 0 });
   
-  // Load textures
-  const textures = useTexture({
-    map: '/assests/textures/Emblemat_Świadomośc_kolor2_1.png',
-    normalMap: '/assests/textures/Emblemat_Świadomośc_normalmap_2.png'
-  });
-
-  // Configure textures
-  useEffect(() => {
-    textures.map.wrapS = textures.map.wrapT = THREE.RepeatWrapping;
-    textures.map.repeat.set(1, 1);
-    textures.normalMap.wrapS = textures.normalMap.wrapT = THREE.RepeatWrapping;
-    textures.normalMap.repeat.set(1, 1);
-  }, [textures]);
-
-  // Apply enhanced glowing materials
-  useEffect(() => {
-    if (materials) {
-      Object.values(materials).forEach(material => {
-        if (material instanceof THREE.Material) {
-          material.map = textures.map;
-          material.normalMap = textures.normalMap;
-          material.needsUpdate = true;
-          
-          // Enhanced glowing material properties
-          material.metalness = 0.9;
-          material.roughness = 0.1;
-          material.envMapIntensity = 2;
-          material.transparent = true;
-          material.opacity = 0.95;
-          
-          // Add emissive glow
-          material.emissive = new THREE.Color(hovered ? '#00FFFF' : '#9D00FF');
-          material.emissiveIntensity = hovered ? 0.8 : 0.5;
-          
-          // Add custom shader chunks for enhanced glow
-          if (material instanceof THREE.MeshStandardMaterial) {
-            material.onBeforeCompile = (shader) => {
-              shader.uniforms.time = { value: 0 };
-              
-              // Add uniform declaration at global scope
-              shader.fragmentShader = 'uniform float time;\n' + shader.fragmentShader;
-              
-              // Replace emissivemap fragment
-              shader.fragmentShader = shader.fragmentShader.replace(
-                '#include <emissivemap_fragment>',
-                `
-                #include <emissivemap_fragment>
-                float pulse = sin(vUv.x * 10.0 + time) * 0.5 + 0.5;
-                totalEmissiveRadiance += emissive * pulse;
-                `
-              );
-              
-              // Store shader reference for updating time uniform
-              (material as any)._shader = shader;
-            };
-          }
-        }
-      });
-    }
-  }, [materials, textures, hovered]);
-
   // Interactive animations with mouse tracking
   const springs = useSpring({
     scale: clicked ? [2.3, 2.3, 2.3] : hovered ? [2.1, 2.1, 2.1] : [2.0, 2.0, 2.0],
     rotation: [
-      hovered ? pointer.y * 0.5 : 0,
-      hovered ? pointer.x * 0.5 : 0,
+      hovered ? pointer.y * Math.PI : 0,
+      hovered ? pointer.x * Math.PI : 0,
       0
     ],
     config: { 
       mass: 2, 
       tension: 280, 
-      friction: hovered ? 30 : 60 // Lower friction when hovered for smoother movement
+      friction: hovered ? 20 : 40 // Lower friction for smoother rotation
     }
   });
   
@@ -95,34 +33,21 @@ const HolographicAvatar = () => {
       const mouseX = (pointer.x * state.viewport.width) / 2;
       const mouseY = (pointer.y * state.viewport.height) / 2;
       
-      // Smooth mouse following
       if (hovered) {
-        meshRef.current.position.x += (mouseX / 4 - meshRef.current.position.x) * 0.1;
-        meshRef.current.position.y += (mouseY / 4 - meshRef.current.position.y) * 0.1;
+        // Smooth rotation based on mouse movement
+        rotationSpeed.x = (mouseY - (meshRef.current.rotation.x * 180 / Math.PI)) * 0.1;
+        rotationSpeed.y = (mouseX - (meshRef.current.rotation.y * 180 / Math.PI)) * 0.1;
+        
+        meshRef.current.rotation.x += rotationSpeed.x * 0.01;
+        meshRef.current.rotation.y += rotationSpeed.y * 0.01;
+        
+        // Add slight floating motion
+        meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1;
       } else {
-        // Return to center when not hovered
-        meshRef.current.position.x += (0 - meshRef.current.position.x) * 0.1;
-        meshRef.current.position.y += (0 - meshRef.current.position.y) * 0.1;
-      }
-      
-      // Dynamic floating motion
-      const floatIntensity = hovered ? 0.2 : 0.1;
-      const baseY = hovered ? mouseY / 4 : 0;
-      meshRef.current.position.y = baseY + Math.sin(state.clock.getElapsedTime() * 0.5) * floatIntensity;
-      
-      // Update shader time uniform
-      if (materials) {
-        Object.values(materials).forEach(material => {
-          if (material instanceof THREE.Material && (material as any)._shader) {
-            (material as any)._shader.uniforms.time.value = state.clock.getElapsedTime();
-          }
-          
-          // Pulsating glow effect
-          if (material instanceof THREE.Material) {
-            const pulseIntensity = Math.sin(state.clock.getElapsedTime() * 2) * 0.2 + 0.8;
-            material.emissiveIntensity = hovered ? pulseIntensity : 0.5;
-          }
-        });
+        // Smooth return to initial position
+        meshRef.current.rotation.x *= 0.95;
+        meshRef.current.rotation.y *= 0.95;
+        meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.2;
       }
       
       // Camera interaction
@@ -136,7 +61,6 @@ const HolographicAvatar = () => {
 
   return (
     <animated.group 
-      ref={meshRef}
       {...springs}
       onPointerOver={(e) => {
         e.stopPropagation();
@@ -160,10 +84,20 @@ const HolographicAvatar = () => {
       }}
       position={[0, 0, 0]}
     >
-      <primitive 
-        object={nodes.Scene}
-        position={[0, 0, 0]}
-      />
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[1.2, 64, 64]} />
+        <MeshDistortMaterial
+          color="#9D00FF"
+          distort={0.4}
+          speed={2}
+          transparent
+          opacity={0.9}
+          metalness={1}
+          roughness={0.3}
+          emissive={hovered ? "#00FFFF" : "#9D00FF"}
+          emissiveIntensity={hovered ? 0.8 : 0.5}
+        />
+      </mesh>
       
       {/* Enhanced dynamic lighting system */}
       <ambientLight intensity={hovered ? 0.8 : 0.6} />
@@ -183,15 +117,6 @@ const HolographicAvatar = () => {
         color={hovered ? "#9D00FF" : "#00FFFF"}
         intensity={hovered ? 2.5 : 1.8}
         distance={10}
-        decay={2}
-      />
-      
-      {/* Accent rim light */}
-      <pointLight
-        position={[0, 0, -3]}
-        color="#FFFFFF"
-        intensity={hovered ? 2 : 1.5}
-        distance={8}
         decay={2}
       />
       
@@ -217,8 +142,5 @@ const HolographicAvatar = () => {
     </animated.group>
   );
 };
-
-// Preload assets
-useGLTF.preload('/assests/mozgai.glb');
 
 export default HolographicAvatar;
