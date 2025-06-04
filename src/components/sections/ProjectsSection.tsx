@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -93,10 +92,7 @@ const projects: Project[] = [
 
 const ProjectsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [visibleProjects, setVisibleProjects] = useState(3);
   
   const containerVariants = {
@@ -127,35 +123,6 @@ const ProjectsSection = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
-
-  useEffect(() => {
-    const scrollElement = scrollRef.current;
-    if (scrollElement) {
-      scrollElement.addEventListener('scroll', handleScroll);
-      handleScroll();
-      return () => scrollElement.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
-
-  const handleScrollDirection = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const cardWidth = scrollRef.current.clientWidth / visibleProjects;
-      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-      
-      scrollRef.current.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <motion.section
@@ -204,16 +171,10 @@ const ProjectsSection = () => {
         {/* Projects Container */}
         <div className="relative flex-1">
           <motion.div
-            ref={scrollRef}
             className="projects-grid"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch'
-            }}
           >
             {projects.map((project, index) => (
               <motion.div 
@@ -230,37 +191,6 @@ const ProjectsSection = () => {
               </motion.div>
             ))}
           </motion.div>
-
-          {/* Navigation Controls */}
-          <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-center gap-3">
-            <motion.button
-              onClick={() => handleScrollDirection('left')}
-              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-                canScrollLeft 
-                  ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
-                  : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
-              }`}
-              disabled={!canScrollLeft}
-              whileHover={canScrollLeft ? { scale: 1.1 } : {}}
-              whileTap={canScrollLeft ? { scale: 0.95 } : {}}
-            >
-              <ArrowLeft size={18} />
-            </motion.button>
-
-            <motion.button
-              onClick={() => handleScrollDirection('right')}
-              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-                canScrollRight 
-                  ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
-                  : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
-              }`}
-              disabled={!canScrollRight}
-              whileHover={canScrollRight ? { scale: 1.1 } : {}}
-              whileTap={canScrollRight ? { scale: 0.95 } : {}}
-            >
-              <ArrowRight size={18} />
-            </motion.button>
-          </div>
         </div>
       </div>
     </motion.section>
