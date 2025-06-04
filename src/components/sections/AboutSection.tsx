@@ -68,6 +68,15 @@ const AboutSection = () => {
       </div>
       
       <div className="lg:w-1/2">
+        <motion.h3
+          className="text-xl md:text-2xl font-bold mb-6 text-neon-cyan"
+          initial={{ x: 50 }}
+          animate={isInView ? { x: 0 } : { x: 50 }}
+          transition={{ duration: 0.5 }}
+        >
+          TECHNICAL EXPERTISE
+        </motion.h3>
+        
         <div className="space-y-6">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
