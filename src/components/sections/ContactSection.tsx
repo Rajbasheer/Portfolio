@@ -1,10 +1,18 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { Send, MapPin, AtSign, Phone, Linkedin, CheckCircle, ExternalLink } from 'lucide-react';
+import { Send, MapPin, AtSign, Phone, Linkedin, CheckCircle, ExternalLink, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+
+interface FormState {
+  name: string;
+  email: string;
+  project: string;
+  message: string;
+}
 
 const ContactSection = () => {
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<FormState>({
     name: '',
     email: '',
     project: '',
@@ -12,7 +20,9 @@ const ContactSection = () => {
   });
   
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const ref = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -20,15 +30,46 @@ const ContactSection = () => {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('submitting');
-    
-    setTimeout(() => {
+    setErrorMessage('');
+
+    try {
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      if (!publicKey) {
+        throw new Error('EmailJS public key is not configured');
+      }
+
+      if (!formRef.current) {
+        throw new Error('Form reference is not available');
+      }
+
+      await emailjs.sendForm(
+        'service_0v3fk6b',
+        'template_b3anzxk',
+        formRef.current,
+        publicKey
+      );
+
       setFormStatus('success');
       setFormState({ name: '', email: '', project: '', message: '' });
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }, 1500);
+      
+      // Reset form status after 3 seconds
+      setTimeout(() => {
+        setFormStatus('idle');
+      }, 3000);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setFormStatus('error');
+      setErrorMessage('Failed to send message. Please try again later.');
+      
+      // Reset error state after 5 seconds
+      setTimeout(() => {
+        setFormStatus('idle');
+        setErrorMessage('');
+      }, 5000);
+    }
   };
   
   return (
@@ -140,7 +181,7 @@ const ContactSection = () => {
               ))}
             </div>
           </motion.div>
-
+          
           {/* Right Column - Form */}
           <motion.div
             className="bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6"
@@ -150,7 +191,7 @@ const ContactSection = () => {
           >
             <h3 className="text-lg font-bold text-white mb-6">GET YOUR FREE AI STRATEGY SESSION</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-neon-blue mb-1">Your Name *</label>
@@ -214,9 +255,13 @@ const ContactSection = () => {
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <motion.button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-neon-cyan to-neon-purple px-4 py-3 rounded-lg text-deep-space font-bold text-sm"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className={`flex-1 px-4 py-3 rounded-lg text-deep-space font-bold text-sm ${
+                    formStatus === 'submitting' 
+                      ? 'bg-gray-500 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-neon-cyan to-neon-purple hover:opacity-90'
+                  }`}
+                  whileHover={formStatus !== 'submitting' ? { scale: 1.02 } : {}}
+                  whileTap={formStatus !== 'submitting' ? { scale: 0.98 } : {}}
                   disabled={formStatus === 'submitting'}
                 >
                   {formStatus === 'idle' && (
@@ -227,6 +272,7 @@ const ContactSection = () => {
                   )}
                   {formStatus === 'submitting' && 'SENDING...'}
                   {formStatus === 'success' && 'REQUEST SENT! 🚀'}
+                  {formStatus === 'error' && 'FAILED TO SEND'}
                 </motion.button>
 
                 <motion.a
@@ -250,6 +296,22 @@ const ContactSection = () => {
                     <div>
                       <h4 className="font-bold text-white text-xs">Request Received!</h4>
                       <p className="text-xs text-white/80">We'll get back to you shortly.</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {formStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-3 p-3 bg-red-500/20 border border-red-500/40 rounded-lg"
+                >
+                  <div className="flex items-center gap-2">
+                    <AlertCircle size={14} className="text-red-500" />
+                    <div>
+                      <h4 className="font-bold text-white text-xs">Error</h4>
+                      <p className="text-xs text-white/80">{errorMessage}</p>
                     </div>
                   </div>
                 </motion.div>
