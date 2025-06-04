@@ -36,10 +36,10 @@ const HomePage = () => {
   // Update page title based on active section
   useEffect(() => {
     const sectionTitles = {
-      home: 'NEO-PORTFOLIO | Home',
-      about: 'NEO-PORTFOLIO | About',
-      projects: 'NEO-PORTFOLIO | Projects',
-      contact: 'NEO-PORTFOLIO | Connect'
+      home: 'Rajbasheer Baig | Backend Engineer (Gen-AI)',
+      about: 'About | Rajbasheer Baig',
+      projects: 'Projects | Rajbasheer Baig',
+      contact: 'Contact | Rajbasheer Baig'
     };
     
     document.title = sectionTitles[activeSection];

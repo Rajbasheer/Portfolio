@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
+import { Code2 } from 'lucide-react';
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
@@ -35,7 +35,7 @@ const LoadingScreen = () => {
       >
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 blur-lg" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <Zap size={48} className="text-neon-cyan animate-pulse" />
+          <Code2 size={48} className="text-neon-cyan animate-pulse" />
         </div>
       </motion.div>
 
@@ -45,7 +45,7 @@ const LoadingScreen = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
       >
-        INITIALIZING <span className="text-neon-cyan">NEO-PORTFOLIO</span>
+        INITIALIZING <span className="text-neon-cyan">RAJ PORTFOLIO</span>
       </motion.h1>
       
       <motion.div 
@@ -67,7 +67,7 @@ const LoadingScreen = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
       >
-        <span>LOADING ASSETS</span>
+        <span>LOADING PORTFOLIO</span>
         <span>{progress}%</span>
       </motion.div>
       
@@ -77,7 +77,7 @@ const LoadingScreen = () => {
         animate={{ opacity: 0.6 }}
         transition={{ delay: 1, duration: 1 }}
       >
-        <p className="typing-effect">QUANTUM RENDERING SYSTEM v2.100</p>
+        <p className="typing-effect">BACKEND ENGINEER • AI SPECIALIST v1.0</p>
       </motion.div>
     </motion.div>
   );

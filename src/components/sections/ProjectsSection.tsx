@@ -9,99 +9,85 @@ interface Project {
   description: string;
   technologies: string[];
   image: string;
+  company?: string;
+  year?: string;
+  liveUrl?: string;
+  impact?: string;
 }
 
 const projects: Project[] = [
   {
     id: 1,
-    title: 'Enterprise Resource Hub',
-    description: 'Microservices-based resource management platform serving 10,000+ users with real-time analytics and reporting.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'AWS'],
-    image: 'https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg'
+    title: 'AI-Powered Voice Agent',
+    description: 'Revolutionary AI Voice Agent that automates outbound calling and appointment scheduling, achieving 3× response efficiency and 60% reduction in manual work using Python, AWS Lambda, and LangChain.',
+    technologies: ['Python', 'AWS Lambda', 'FastAPI', 'Twilio'],
+    image: 'https://images.pexels.com/photos/8439093/pexels-photo-8439093.jpeg',
+    company: 'Vitel Global',
+    year: '2024',
+    liveUrl: 'https://callingagent.pranathiss.com/',
+    impact: '60% reduction in manual work, 95% transcription accuracy'
   },
   {
     id: 2,
-    title: 'AI-Powered Analytics',
-    description: 'Machine learning platform for predictive analytics, reducing data processing time by 60% through automated workflows.',
-    technologies: ['Python', 'TensorFlow', 'Docker', 'Azure'],
-    image: 'https://images.pexels.com/photos/7054528/pexels-photo-7054528.jpeg'
+    title: 'Avatar Chat Bot Platform',
+    description: 'Next-generation AI Avatar Chatbot delivering 45% higher user engagement and 50% lower latency using Synthesia avatars, LLMs, and deployed on AWS EKS.',
+    technologies: ['Python', 'AWS EKS', 'Synthesia', 'FastAPI'],
+    image: 'https://images.pexels.com/photos/8439093/pexels-photo-8439093.jpeg',
+    company: 'Vitel Global',
+    year: '2024',
+    liveUrl: 'https://app.avatarchatbots.ai/',
+    impact: '45% higher engagement, 50% faster responses'
   },
   {
     id: 3,
-    title: 'Cloud Migration Suite',
-    description: 'Led the development of a cloud migration tool that successfully transitioned 200+ applications to AWS infrastructure.',
-    technologies: ['AWS', 'Terraform', 'Jenkins', 'Kubernetes'],
-    image: 'https://images.pexels.com/photos/2156/sky-earth-space-working.jpg'
+    title: 'Multi-LLM Code Generation Platform',
+    description: 'Enterprise-grade Generative AI platform for automated code generation using multiple LLMs (OpenAI, Claude, Gemini) with intelligent prompt routing and token management.',
+    technologies: ['Python', 'FastAPI', 'LangChain', 'OpenAI'],
+    image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg',
+    company: 'Vitel Global',
+    year: '2024',
+    impact: 'Multi-model orchestration, enterprise scalability'
   },
   {
     id: 4,
-    title: 'Smart City Platform',
-    description: 'IoT-based smart city management system integrating traffic, energy, and environmental monitoring.',
-    technologies: ['IoT', 'React', 'Node.js', 'MongoDB'],
-    image: 'https://images.pexels.com/photos/373912/pexels-photo-373912.jpeg'
+    title: 'Custom LLM Fine-tuning Engine',
+    description: 'Built sophisticated LLM fine-tuning pipeline using domain-specific datasets, improving model accuracy by 35% for specialized AI applications.',
+    technologies: ['Python', 'PyTorch', 'Hugging Face', 'CUDA'],
+    image: 'https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg',
+    company: 'Vitel Global',
+    year: '2024',
+    impact: '35% accuracy improvement, custom domain adaptation'
   },
   {
     id: 5,
-    title: 'Quantum Computing Simulator',
-    description: 'Educational platform for quantum computing simulation with interactive visualizations.',
-    technologies: ['Python', 'React', 'WebGL', 'TypeScript'],
-    image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg'
+    title: 'Job Tracking Multi-Agent System',
+    description: 'Intelligent job application tracking system powered by multiple AI agents. Automates application status monitoring, interview scheduling, and provides insights using advanced RAG techniques.',
+    technologies: ['Python', 'LangChain', 'RAG', 'FastAPI'],
+    image: 'https://images.pexels.com/photos/5483077/pexels-photo-5483077.jpeg',
+    company: 'Personal Project',
+    year: '2024',
+    impact: 'Automated job tracking, AI-powered insights'
   },
   {
     id: 6,
-    title: 'Blockchain Supply Chain',
-    description: 'Decentralized supply chain management system using blockchain technology.',
-    technologies: ['Solidity', 'Ethereum', 'React', 'Node.js'],
-    image: 'https://images.pexels.com/photos/7788009/pexels-photo-7788009.jpeg'
+    title: 'Toyota Material Handling Platform',
+    description: 'Enterprise-scale platform serving thousands of dealers worldwide. Built scalable RESTful APIs for real-time inventory tracking and equipment management.',
+    technologies: ['Python', 'FastAPI', 'React.js', 'PostgreSQL'],
+    image: 'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg',
+    company: 'Accenture',
+    year: '2021-2023',
+    liveUrl: 'https://www.toyotaforklift.com/',
+    impact: '40% performance improvement, global dealer network'
   },
   {
     id: 7,
-    title: 'Neural Network Composer',
-    description: 'AI-powered music composition tool using deep learning algorithms.',
-    technologies: ['Python', 'TensorFlow', 'Web Audio API'],
-    image: 'https://images.pexels.com/photos/7130560/pexels-photo-7130560.jpeg'
-  },
-  {
-    id: 8,
-    title: 'Augmented Reality SDK',
-    description: 'Cross-platform SDK for building AR applications with gesture recognition.',
-    technologies: ['Unity', 'C#', 'ARKit', 'ARCore'],
-    image: 'https://images.pexels.com/photos/8728285/pexels-photo-8728285.jpeg'
-  },
-  {
-    id: 9,
-    title: 'Cybersecurity Dashboard',
-    description: 'Real-time security monitoring and threat detection platform.',
-    technologies: ['React', 'Python', 'ElasticSearch'],
-    image: 'https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg'
-  },
-  {
-    id: 10,
-    title: 'Edge Computing Platform',
-    description: 'Distributed computing platform for IoT devices with real-time processing.',
-    technologies: ['Rust', 'WebAssembly', 'Kubernetes'],
-    image: 'https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg'
-  },
-  {
-    id: 11,
-    title: 'Virtual Reality Training',
-    description: 'VR-based industrial training platform with performance analytics.',
-    technologies: ['Unity', 'C#', 'WebXR', 'Firebase'],
-    image: 'https://images.pexels.com/photos/8728557/pexels-photo-8728557.jpeg'
-  },
-  {
-    id: 12,
-    title: 'Autonomous Drone System',
-    description: 'AI-powered drone control system for automated inspection and mapping.',
-    technologies: ['Python', 'ROS', 'Computer Vision'],
-    image: 'https://images.pexels.com/photos/442589/pexels-photo-442589.jpeg'
-  },
-  {
-    id: 13,
-    title: 'Quantum Cryptography',
-    description: 'Next-generation cryptographic system using quantum key distribution.',
-    technologies: ['Python', 'C++', 'Quantum SDK'],
-    image: 'https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg'
+    title: 'MediLink Healthcare Platform',
+    description: 'HIPAA-compliant AI-driven healthcare platform for managing patient records. Features LLM-powered search system reducing search time by 50%.',
+    technologies: ['React.js', 'Spring Boot', 'MySQL', 'LLM'],
+    image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg',
+    company: 'Academic Project',
+    year: '2024',
+    impact: '50% faster medical record retrieval, HIPAA compliant'
   }
 ];
 
@@ -141,7 +127,7 @@ const ProjectsSection = () => {
 
   const handleScrollDirection = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const cardWidth = window.innerWidth <= 768 ? 300 : 400;
+      const cardWidth = 280; // Fixed smaller width
       const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
       
       scrollRef.current.scrollBy({
@@ -154,26 +140,51 @@ const ProjectsSection = () => {
   return (
     <motion.section
       ref={ref}
-      className="p-4 md:p-8 overflow-hidden relative flex flex-col min-h-screen"
+      className="h-screen flex flex-col p-4 md:p-6 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
+      {/* Compact Header */}
       <motion.div
-        className="mb-8 mt-20 md:mt-8"
-        initial={{ y: -30, opacity: 0 }}
-        animate={isInView ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
+        className="mb-6"
+        initial={{ y: -20, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text">
-          FEATURED PROJECTS
+        <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">
+          REVENUE-GENERATING PROJECTS
         </h2>
+        <p className="text-sm md:text-base text-white/70 mb-4">
+          AI solutions that deliver measurable business impact and ROI
+        </p>
+        
+        {/* Compact Impact Summary */}
+        <div className="grid grid-cols-4 gap-2 md:gap-4">
+          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
+            <div className="text-neon-cyan font-bold text-sm md:text-lg">10K+</div>
+            <div className="text-xs text-white/70">Calls Handled</div>
+          </div>
+          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-purple/20 rounded-lg p-2 md:p-3 text-center">
+            <div className="text-neon-purple font-bold text-sm md:text-lg">99.9%</div>
+            <div className="text-xs text-white/70">Uptime</div>
+          </div>
+          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-cyan/20 rounded-lg p-2 md:p-3 text-center">
+            <div className="text-neon-cyan font-bold text-sm md:text-lg">60%</div>
+            <div className="text-xs text-white/70">Cost Cut</div>
+          </div>
+          <div className="bg-deep-space/40 backdrop-blur-sm border border-neon-purple/20 rounded-lg p-2 md:p-3 text-center">
+            <div className="text-neon-purple font-bold text-sm md:text-lg">3×</div>
+            <div className="text-xs text-white/70">Efficiency</div>
+          </div>
+        </div>
       </motion.div>
       
+      {/* Projects Container - Takes remaining height */}
       <div className="flex-1 relative">
         <motion.div
           ref={scrollRef}
-          className="flex overflow-x-auto space-x-4 md:space-x-6 snap-x snap-mandatory scroll-smooth pb-16 hide-scrollbar"
+          className="flex overflow-x-auto space-x-3 md:space-x-4 snap-x snap-mandatory scroll-smooth h-full pb-12 hide-scrollbar"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -186,8 +197,7 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              className="flex-none snap-center" 
-              style={{ width: window.innerWidth <= 768 ? '300px' : '400px' }}
+              className="flex-none snap-center w-64 md:w-72"
             >
               <ProjectCard
                 project={project}
@@ -197,10 +207,11 @@ const ProjectsSection = () => {
           ))}
         </motion.div>
 
-        <div className="absolute left-1/2 -bottom-4 transform -translate-x-1/2 flex items-center gap-4 p-4">
+        {/* Navigation Controls */}
+        <div className="absolute left-1/2 -bottom-2 transform -translate-x-1/2 flex items-center gap-3">
           <motion.button
             onClick={() => handleScrollDirection('left')}
-            className={`p-3 rounded-full backdrop-blur-sm transition-all duration-300 ${
+            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
               canScrollLeft 
                 ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
                 : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
@@ -209,12 +220,12 @@ const ProjectsSection = () => {
             whileHover={canScrollLeft ? { scale: 1.1 } : {}}
             whileTap={canScrollLeft ? { scale: 0.95 } : {}}
           >
-            <ArrowLeft size={24} />
+            <ArrowLeft size={18} />
           </motion.button>
 
           <motion.button
             onClick={() => handleScrollDirection('right')}
-            className={`p-3 rounded-full backdrop-blur-sm transition-all duration-300 ${
+            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
               canScrollRight 
                 ? 'bg-neon-purple/20 text-neon-purple hover:bg-neon-purple/30' 
                 : 'bg-gray-800/20 text-gray-600 cursor-not-allowed'
@@ -223,7 +234,7 @@ const ProjectsSection = () => {
             whileHover={canScrollRight ? { scale: 1.1 } : {}}
             whileTap={canScrollRight ? { scale: 0.95 } : {}}
           >
-            <ArrowRight size={24} />
+            <ArrowRight size={18} />
           </motion.button>
         </div>
       </div>

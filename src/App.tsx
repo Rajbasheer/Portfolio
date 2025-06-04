@@ -20,7 +20,7 @@ function App() {
 
   return (
     <AppProvider>
-      <div className="min-h-screen bg-deep-space text-neon-blue overflow-hidden">
+      <div className="min-h-screen bg-deep-space text-neon-blue overflow-x-hidden">
         <AnimatePresence mode="wait">
           {loading ? (
             <LoadingScreen key="loading" />
