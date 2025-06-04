@@ -66,6 +66,14 @@ const AboutSection = () => {
                   </span>
                 </p>
               </div>
+              <div className="flex items-center gap-2">
+                  <div className="flex -space-x-2">
+                    <div className="w-6 h-6 bg-neon-cyan/30 rounded-full border border-neon-cyan/50"></div>
+                    <div className="w-6 h-6 bg-neon-purple/30 rounded-full border border-neon-purple/50"></div>
+                    <div className="w-6 h-6 bg-white/30 rounded-full border border-white/50"></div>
+                  </div>
+                  <a href='https://github.com/Rajbasheer'>Explore my GitHub (Steal with style)</a>
+                </div>
             </motion.div>
           </div>
           

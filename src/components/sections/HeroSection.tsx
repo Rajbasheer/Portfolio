@@ -194,7 +194,7 @@ const HeroSection = () => {
               <div className="w-6 h-6 bg-neon-purple/30 rounded-full border border-neon-purple/50"></div>
               <div className="w-6 h-6 bg-white/30 rounded-full border border-white/50"></div>
             </div>
-            <a href='/Portfolio/assets/Rajbasheer_baig_mogal_Resume.pdf'>Take a peak at my resume</a>
+            <a href='https://drive.google.com/file/d/1QiKNFsEoIfN1pdI2TtT-av5Nv_OHhdPc/view?usp=drive_link'>Curious? My Resume just a click away</a>
           </div>
         </motion.div>
       </div>
