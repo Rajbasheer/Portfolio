@@ -19,7 +19,7 @@ const AboutSection = () => {
   return (
     <motion.section
       ref={ref}
-      className="flex flex-col lg:flex-row gap-8 lg:gap-16 p-4 md:p-8"
+      className="flex flex-col lg:flex-row gap-8 lg:gap-16 p-4 md:p-8 pt-24 md:pt-32"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8, delay: 0.3 }}
