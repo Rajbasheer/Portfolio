@@ -26,7 +26,7 @@ const AboutSection = () => {
     >
       <div className="lg:w-1/2">
         <motion.h2
-          className="text-xl md:text-2xl font-bold mb-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text"
+          className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text"
           initial={{ x: -50 }}
           animate={isInView ? { x: 0 } : { x: -50 }}
           transition={{ duration: 0.5 }}
@@ -35,31 +35,31 @@ const AboutSection = () => {
         </motion.h2>
         
         <motion.div
-          className="space-y-3 text-white/80"
+          className="space-y-4 text-white/80"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <p className="text-sm leading-relaxed">
+          <p className="text-base leading-relaxed">
             Senior Backend Engineer with <span className="text-neon-cyan font-semibold">6+ years</span> of experience specializing in building scalable, cloud-native applications and LLM-powered AI systems. Expert in Python, FastAPI, TensorFlow, PyTorch, and LangChain with hands-on expertise in Generative AI and Retrieval-Augmented Generation (RAG).
           </p>
-          <p className="text-sm leading-relaxed">
+          <p className="text-base leading-relaxed">
             Currently working as a Backend Engineer (Gen-AI) at <span className="text-neon-purple font-medium">Vitel Global</span>, where I've built AI-powered Voice Agents that achieve <span className="text-neon-cyan font-semibold">3× response efficiency</span> and reduced manual work by <span className="text-neon-cyan font-semibold">60%</span>.
           </p>
-          <p className="text-sm leading-relaxed">
+          <p className="text-base leading-relaxed">
             Passionate about combining backend engineering and GenAI to deliver robust, real-time solutions. Proven track record of reducing inference latency by <span className="text-neon-purple font-semibold">40%</span> and improving model accuracy by <span className="text-neon-purple font-semibold">25%</span>.
           </p>
           
-          <div className="mt-4 p-3 bg-deep-space/30 rounded-lg border border-neon-blue/20">
-            <div className="flex items-center gap-2 mb-1">
-              <Award size={16} className="text-neon-cyan" />
-              <h4 className="text-neon-cyan font-semibold text-sm">Education</h4>
+          <div className="mt-6 p-4 bg-deep-space/30 rounded-lg border border-neon-blue/20">
+            <div className="flex items-center gap-2 mb-2">
+              <Award size={18} className="text-neon-cyan" />
+              <h4 className="text-neon-cyan font-semibold text-base">Education</h4>
             </div>
-            <p className="text-xs">
+            <p className="text-sm">
               <strong>Masters in Computer Science</strong><br />
               Pace University, Seidenberg School of Computer Science<br />
               <span className="flex items-center gap-1 mt-1 text-white/60">
-                <MapPin size={12} />
+                <MapPin size={14} />
                 New York City
               </span>
             </p>
@@ -69,7 +69,7 @@ const AboutSection = () => {
       
       <div className="lg:w-1/2">
         <motion.h3
-          className="text-lg md:text-xl font-bold mb-4 text-neon-cyan"
+          className="text-xl md:text-2xl font-bold mb-6 text-neon-cyan"
           initial={{ x: 50 }}
           animate={isInView ? { x: 0 } : { x: 50 }}
           transition={{ duration: 0.5 }}
@@ -77,7 +77,7 @@ const AboutSection = () => {
           TECHNICAL EXPERTISE
         </motion.h3>
         
-        <div className="space-y-4">
+        <div className="space-y-5">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
             
@@ -89,24 +89,24 @@ const AboutSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.1 * index }}
               >
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <div className={`p-1 rounded-full ${skill.highlight ? 'bg-neon-cyan/20' : 'bg-neon-blue/10'}`}>
-                      <Icon size={14} className={skill.highlight ? 'text-neon-cyan' : 'text-neon-cyan'} />
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-1.5 rounded-full ${skill.highlight ? 'bg-neon-cyan/20' : 'bg-neon-blue/10'}`}>
+                      <Icon size={16} className={skill.highlight ? 'text-neon-cyan' : 'text-neon-cyan'} />
                     </div>
-                    <span className="font-medium text-xs">{skill.name}</span>
+                    <span className="font-medium text-sm">{skill.name}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-neon-cyan">{skill.value}%</span>
+                    <span className="text-sm font-bold text-neon-cyan">{skill.value}%</span>
                     {skill.highlight && (
-                      <span className="px-2 py-0.5 bg-neon-cyan/20 rounded text-[10px] font-bold text-neon-cyan">
+                      <span className="px-2 py-0.5 bg-neon-cyan/20 rounded text-xs font-bold text-neon-cyan">
                         EXPERT
                       </span>
                     )}
                   </div>
                 </div>
                 
-                <div className="h-1 w-full bg-deep-space/80 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-deep-space/80 rounded-full overflow-hidden">
                   <motion.div 
                     className={`h-full ${
                       skill.highlight 
@@ -124,18 +124,18 @@ const AboutSection = () => {
         </div>
         
         <motion.div
-          className="mt-4 p-3 bg-neon-purple/10 rounded-lg border border-neon-purple/20"
+          className="mt-6 p-4 bg-neon-purple/10 rounded-lg border border-neon-purple/20"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          <h4 className="text-neon-purple font-semibold text-sm mb-2">Key Technologies</h4>
-          <div className="flex flex-wrap gap-1.5 text-[10px]">
+          <h4 className="text-neon-purple font-semibold text-base mb-3">Key Technologies</h4>
+          <div className="flex flex-wrap gap-2 text-xs">
             {[
               'Python', 'FastAPI', 'TensorFlow', 'PyTorch', 'LangChain', 'OpenAI', 'AWS', 'GCP', 
               'Docker', 'Kubernetes', 'React.js', 'MongoDB', 'PostgreSQL', 'Jenkins'
             ].map((tech) => (
-              <span key={tech} className="px-2 py-0.5 bg-deep-space/50 rounded text-white/70 hover:text-white transition-colors">
+              <span key={tech} className="px-2 py-1 bg-deep-space/50 rounded text-white/70 hover:text-white transition-colors">
                 {tech}
               </span>
             ))}
