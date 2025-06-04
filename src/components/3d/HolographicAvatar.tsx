@@ -32,7 +32,7 @@ const HolographicAvatar = () => {
   }, [scene, hovered]);
   
   const springs = useSpring({
-    scale: clicked ? [2.3, 2.3, 2.3] : hovered ? [2.1, 2.1, 2.1] : [2.0, 2.0, 2.0],
+    scale: clicked ? [1.15, 1.15, 1.15] : hovered ? [1.05, 1.05, 1.05] : [1.0, 1.0, 1.0],
     rotation: [
       hovered ? pointer.y * Math.PI : 0,
       hovered ? pointer.x * Math.PI : 0,
