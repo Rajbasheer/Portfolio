@@ -24,7 +24,7 @@ const HolographicAvatar = () => {
             transparent: true,
             opacity: 0.9,
             emissive: hovered ? '#00FFFF' : '#9D00FF',
-            emissiveIntensity: hovered ? 1.2 : 0.8,
+            emissiveIntensity: hovered ? 0.8 : 0.5,
             clearcoat: 1.0,
             clearcoatRoughness: 0.1,
             sheen: 1.0,
@@ -129,7 +129,7 @@ const HolographicAvatar = () => {
         decay={2}
       />
       
-      {/* Base volumetric glow */}
+      {/* Volumetric glow */}
       <pointLight
         position={[0, 0, 2]}
         color="#00FFFF"
