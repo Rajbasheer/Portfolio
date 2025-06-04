@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, MeshDistortMaterial } from '@react-three/drei';
 import { useSpring, animated } from '@react-spring/three';
 import * as THREE from 'three';
 
@@ -24,7 +24,14 @@ const HolographicAvatar = () => {
             transparent: true,
             opacity: 0.9,
             emissive: hovered ? '#00FFFF' : '#9D00FF',
-            emissiveIntensity: hovered ? 0.8 : 0.5
+            emissiveIntensity: hovered ? 0.8 : 0.5,
+            clearcoat: 1.0,
+            clearcoatRoughness: 0.1,
+            sheen: 1.0,
+            sheenRoughness: 0.5,
+            sheenColor: new THREE.Color(hovered ? '#00FFFF' : '#9D00FF'),
+            transmission: 0.2,
+            thickness: 0.5
           });
         }
       });
@@ -122,20 +129,47 @@ const HolographicAvatar = () => {
         decay={2}
       />
       
-      {/* Interactive volumetric glow */}
+      {/* Volumetric glow */}
+      <pointLight
+        position={[0, 0, 2]}
+        color="#00FFFF"
+        intensity={hovered ? 3 : 1.5}
+        distance={8}
+        decay={2}
+      />
+      
+      {/* Accent lighting */}
+      <pointLight
+        position={[0, 2, 0]}
+        color="#9D00FF"
+        intensity={hovered ? 2.5 : 1.2}
+        distance={6}
+        decay={2}
+      />
+      
+      {/* Ground glow */}
+      <pointLight
+        position={[0, -2, 0]}
+        color={hovered ? "#00FFFF" : "#9D00FF"}
+        intensity={hovered ? 2 : 1}
+        distance={5}
+        decay={2}
+      />
+      
+      {/* Interactive rim lighting */}
       {hovered && (
         <>
           <pointLight
-            position={[0, 0, 2]}
+            position={[3, 0, 0]}
             color="#00FFFF"
-            intensity={3}
-            distance={5}
+            intensity={2}
+            distance={4}
             decay={2}
           />
           <pointLight
-            position={[0, 2, 0]}
+            position={[-3, 0, 0]}
             color="#9D00FF"
-            intensity={2.5}
+            intensity={2}
             distance={4}
             decay={2}
           />
