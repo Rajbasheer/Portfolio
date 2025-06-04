@@ -34,37 +34,37 @@ const ContactSection = () => {
   return (
     <motion.section
       ref={ref}
-      className="h-screen flex flex-col p-4 md:p-6"
+      className="section-container"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Header */}
-      <motion.div
-        className="mb-6"
-        initial={{ y: -20, opacity: 0 }}
-        animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">
-          LET'S BUILD YOUR AI FUTURE
-        </h2>
-        <p className="text-sm md:text-base text-white/70 mb-4">
-          Ready to 10X your capabilities? Get your free AI strategy session.
-        </p>
-      </motion.div>
+      <div className="content-wrapper">
+        {/* Header */}
+        <motion.div
+          className="mb-6"
+          initial={{ y: -20, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text mb-2">
+            LET'S BUILD YOUR AI FUTURE
+          </h2>
+          <p className="text-sm md:text-base text-white/70 mb-4">
+            Ready to 10X your capabilities? Get your free AI strategy session.
+          </p>
+        </motion.div>
 
-      {/* Main Content */}
-      <div className="flex-1 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-full">
+        {/* Main Content */}
+        <div className="contact-grid">
           {/* Left Column - Quick Connect */}
           <motion.div
-            className="lg:col-span-3 space-y-4"
+            className="space-y-4"
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="grid grid-cols-1 gap-3">
+            <div className="contact-inner-grid">
               <motion.a
                 href="tel:+18624052051"
                 className="block p-3 bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 backdrop-blur-sm border border-neon-purple/30 rounded-lg hover:border-neon-purple/50 transition-all duration-300 group"
@@ -100,34 +100,34 @@ const ContactSection = () => {
                   <ExternalLink size={14} className="text-neon-cyan" />
                 </div>
               </motion.a>
+            </div>
 
-              <motion.a
-                href="https://linkedin.com/in/rajbasheerbaig-mogal/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-3 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-neon-blue/30 rounded-full">
-                    <Linkedin size={16} className="text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-white font-semibold text-sm">LinkedIn</div>
-                    <div className="text-xs text-white/70">Professional network</div>
-                  </div>
-                  <ExternalLink size={14} className="text-neon-blue" />
+            <motion.a
+              href="https://linkedin.com/in/rajbasheerbaig-mogal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block p-3 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-neon-blue/30 rounded-full">
+                  <Linkedin size={16} className="text-white" />
                 </div>
-              </motion.a>
-
-              <div className="p-3 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
-                <div className="flex items-center gap-2 mb-1">
-                  <MapPin size={16} className="text-neon-purple" />
-                  <span className="text-white font-medium text-sm">Harrison, NJ</span>
+                <div className="flex-1">
+                  <div className="text-white font-semibold text-sm">LinkedIn</div>
+                  <div className="text-xs text-white/70">Professional network</div>
                 </div>
-                <div className="text-xs text-white/70">Remote & On-site Available</div>
+                <ExternalLink size={14} className="text-neon-blue" />
               </div>
+            </motion.a>
+
+            <div className="p-3 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
+              <div className="flex items-center gap-2 mb-1">
+                <MapPin size={16} className="text-neon-purple" />
+                <span className="text-white font-medium text-sm">Harrison, NJ</span>
+              </div>
+              <div className="text-xs text-white/70">Remote & On-site Available</div>
             </div>
 
             {/* Benefits */}
@@ -143,7 +143,7 @@ const ContactSection = () => {
 
           {/* Right Column - Form */}
           <motion.div
-            className="lg:col-span-9 bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6"
+            className="bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -219,7 +219,12 @@ const ContactSection = () => {
                   whileTap={{ scale: 0.98 }}
                   disabled={formStatus === 'submitting'}
                 >
-                  {formStatus === 'idle' && 'GET FREE CONSULTATION'}
+                  {formStatus === 'idle' && (
+                    <span className="flex items-center justify-center gap-2">
+                      GET FREE CONSULTATION
+                      <Send size={16} />
+                    </span>
+                  )}
                   {formStatus === 'submitting' && 'SENDING...'}
                   {formStatus === 'success' && 'REQUEST SENT! 🚀'}
                 </motion.button>
