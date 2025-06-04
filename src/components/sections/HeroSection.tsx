@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { motion } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
 import { useAppContext } from '../../context/AppContext';
+import HolographicAvatar from '../3d/HolographicAvatar';
 import { ArrowRight, Award, TrendingUp, Users, Zap } from 'lucide-react';
 
 const HeroSection = () => {
@@ -198,25 +200,21 @@ const HeroSection = () => {
       </div>
       
       <div className="md:w-1/2 h-[40vh] md:h-[60vh] z-0 md:order-2 order-1 mb-8 md:mb-0 flex items-center justify-center">
-        <div className="w-full h-full max-w-[600px] relative">
-          <iframe
-            title="Central Brain of Mankind (CML)"
-            className="w-full h-full rounded-lg"
-            src="https://sketchfab.com/models/19552f5415644847a0b484b35e370c90/embed"
-            frameBorder="0"
-            allowFullScreen
-            allow="autoplay; fullscreen; xr-spatial-tracking"
-            style={{
-              background: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-            }}
+        <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
+          <ambientLight intensity={0.2} />
+          <pointLight position={[5, 5, 5]} intensity={1.2} color="#00FFFF" />
+          <pointLight position={[-5, -5, -5]} intensity={0.8} color="#9D00FF" />
+          <spotLight
+            position={[0, 5, 0]}
+            intensity={0.8}
+            angle={0.5}
+            penumbra={1}
+            color="#00FFFF"
           />
-          <div className="absolute inset-0 pointer-events-none rounded-lg" style={{
-            background: 'linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(157, 0, 255, 0.1))',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }} />
-        </div>
+          <Suspense fallback={null}>
+            <HolographicAvatar />
+          </Suspense>
+        </Canvas>
       </div>
     </motion.div>
   );
