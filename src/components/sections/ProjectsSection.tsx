@@ -23,7 +23,7 @@ const projects: Project[] = [
     image: 'assets/calling.png',
     company: 'Vitel Global',
     year: '2024',
-    liveUrl: 'https://callingagent.pranathiss.com/',
+    liveUrl: 'https://callingo.ai/',
     impact: '60% reduction in manual work, 95% transcription accuracy'
   },
   {
@@ -34,7 +34,7 @@ const projects: Project[] = [
     image: 'assets/avatar.png',
     company: 'Vitel Global',
     year: '2024',
-    liveUrl: 'https://app.avatarchatbots.ai/',
+    liveUrl: 'https://avatarchatbots.ai/',
     impact: '45% higher engagement, 50% faster responses'
   },
   {
