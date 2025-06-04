@@ -44,7 +44,7 @@ const ContactSection = () => {
       <div className="w-full max-w-7xl">
         {/* Header */}
         <motion.div
-          className="text-center mb-12"
+          className="text-right mb-12"
           initial={{ y: -30, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
           transition={{ duration: 0.5 }}
@@ -52,7 +52,7 @@ const ContactSection = () => {
           <h2 className="text-xl md:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-transparent bg-clip-text">
             LET'S BUILD YOUR AI FUTURE
           </h2>
-          <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-white/80 max-w-2xl ml-auto">
             Ready to 10X your capabilities? Get your free AI strategy session.
           </p>
           
@@ -63,13 +63,109 @@ const ContactSection = () => {
         </motion.div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Left Column - Form */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Left Column - Quick Connect & Visual */}
           <motion.div
-            className="bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6"
+            className="lg:col-span-4 space-y-8"
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {/* Quick Connect Cards */}
+            <div className="grid grid-cols-1 gap-4">
+              <motion.a
+                href="tel:+18624052051"
+                className="block p-4 bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 backdrop-blur-sm border border-neon-purple/30 rounded-lg hover:border-neon-purple/50 transition-all duration-300 group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-neon-purple/30 rounded-full">
+                    <Phone size={20} className="text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-white font-semibold">Call Now</div>
+                    <div className="text-sm text-white/70">(862) 405-2051</div>
+                  </div>
+                  <ExternalLink size={16} className="text-neon-purple" />
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="mailto:mrajbasheer@gmail.com"
+                className="block p-4 bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 backdrop-blur-sm border border-neon-cyan/30 rounded-lg hover:border-neon-cyan/50 transition-all duration-300 group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-neon-cyan/30 rounded-full">
+                    <AtSign size={20} className="text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-white font-semibold">Email Direct</div>
+                    <div className="text-sm text-white/70">4hr response</div>
+                  </div>
+                  <ExternalLink size={16} className="text-neon-cyan" />
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="https://linkedin.com/in/rajbasheerbaig-mogal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block p-4 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-neon-blue/30 rounded-full">
+                    <Linkedin size={20} className="text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-white font-semibold">LinkedIn</div>
+                    <div className="text-sm text-white/70">Professional network</div>
+                  </div>
+                  <ExternalLink size={16} className="text-neon-blue" />
+                </div>
+              </motion.a>
+
+              <div className="p-4 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
+                <div className="flex items-center gap-2 mb-1">
+                  <MapPin size={20} className="text-neon-purple" />
+                  <span className="text-white font-medium">Harrison, NJ</span>
+                </div>
+                <div className="text-sm text-white/70">Remote & On-site Available</div>
+              </div>
+            </div>
+
+            {/* Benefits */}
+            <div className="grid grid-cols-1 gap-3">
+              {['Free consultation', '24-48hr response', 'Proven ROI results', 'Custom solutions'].map((benefit, index) => (
+                <div key={index} className="flex items-center gap-2 text-sm text-white/80">
+                  <CheckCircle size={14} className="text-neon-cyan" />
+                  <span>{benefit}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* 3D Visual */}
+            <div className="h-48 bg-deep-space/20 rounded-xl border border-neon-blue/20 overflow-hidden">
+              <Suspense fallback={
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-12 h-12 border-2 border-neon-cyan/30 rounded-full animate-spin"></div>
+                </div>
+              }>
+                <AI3DCanvas className="w-full h-full" />
+              </Suspense>
+            </div>
+          </motion.div>
+
+          {/* Right Column - Form */}
+          <motion.div
+            className="lg:col-span-8 bg-deep-space/80 backdrop-blur-md border border-neon-blue/20 rounded-xl p-6 md:p-8"
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             <h3 className="text-lg font-bold text-white mb-6">GET YOUR FREE AI STRATEGY SESSION</h3>
             
@@ -171,102 +267,6 @@ const ContactSection = () => {
                 </motion.div>
               )}
             </form>
-          </motion.div>
-
-          {/* Right Column - Quick Connect & Visual */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            {/* Quick Connect Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <motion.a
-                href="tel:+18624052051"
-                className="block p-4 bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 backdrop-blur-sm border border-neon-purple/30 rounded-lg hover:border-neon-purple/50 transition-all duration-300 group"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-neon-purple/30 rounded-full">
-                    <Phone size={20} className="text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-white font-semibold">Call Now</div>
-                    <div className="text-sm text-white/70">(862) 405-2051</div>
-                  </div>
-                  <ExternalLink size={16} className="text-neon-purple" />
-                </div>
-              </motion.a>
-
-              <motion.a
-                href="mailto:mrajbasheer@gmail.com"
-                className="block p-4 bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 backdrop-blur-sm border border-neon-cyan/30 rounded-lg hover:border-neon-cyan/50 transition-all duration-300 group"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-neon-cyan/30 rounded-full">
-                    <AtSign size={20} className="text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-white font-semibold">Email Direct</div>
-                    <div className="text-sm text-white/70">4hr response</div>
-                  </div>
-                  <ExternalLink size={16} className="text-neon-cyan" />
-                </div>
-              </motion.a>
-
-              <motion.a
-                href="https://linkedin.com/in/rajbasheerbaig-mogal/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-4 bg-deep-space/40 backdrop-blur-sm border border-neon-blue/20 rounded-lg hover:border-neon-blue/40 transition-all duration-300 group"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-neon-blue/30 rounded-full">
-                    <Linkedin size={20} className="text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-white font-semibold">LinkedIn</div>
-                    <div className="text-sm text-white/70">Professional network</div>
-                  </div>
-                  <ExternalLink size={16} className="text-neon-blue" />
-                </div>
-              </motion.a>
-
-              <div className="p-4 bg-neon-purple/10 rounded-lg border border-neon-purple/20">
-                <div className="flex items-center gap-2 mb-1">
-                  <MapPin size={20} className="text-neon-purple" />
-                  <span className="text-white font-medium">Harrison, NJ</span>
-                </div>
-                <div className="text-sm text-white/70">Remote & On-site Available</div>
-              </div>
-            </div>
-
-            {/* 3D Visual */}
-            <div className="h-64 bg-deep-space/20 rounded-xl border border-neon-blue/20 overflow-hidden">
-              <Suspense fallback={
-                <div className="h-full flex items-center justify-center">
-                  <div className="w-12 h-12 border-2 border-neon-cyan/30 rounded-full animate-spin"></div>
-                </div>
-              }>
-                <AI3DCanvas className="w-full h-full" />
-              </Suspense>
-            </div>
-
-            {/* Benefits */}
-            <div className="grid grid-cols-2 gap-4">
-              {['Free consultation', '24-48hr response', 'Proven ROI results', 'Custom solutions'].map((benefit, index) => (
-                <div key={index} className="flex items-center gap-2 text-sm text-white/80">
-                  <CheckCircle size={14} className="text-neon-cyan" />
-                  <span>{benefit}</span>
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
       </div>
