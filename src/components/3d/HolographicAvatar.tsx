@@ -50,10 +50,13 @@ const HolographicAvatar = () => {
             material.onBeforeCompile = (shader) => {
               shader.uniforms.time = { value: 0 };
               
+              // Add uniform declaration at global scope
+              shader.fragmentShader = 'uniform float time;\n' + shader.fragmentShader;
+              
+              // Replace emissivemap fragment
               shader.fragmentShader = shader.fragmentShader.replace(
                 '#include <emissivemap_fragment>',
                 `
-                uniform float time;
                 #include <emissivemap_fragment>
                 float pulse = sin(vUv.x * 10.0 + time) * 0.5 + 0.5;
                 totalEmissiveRadiance += emissive * pulse;
