@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { useAppContext } from '../../context/AppContext';
-import FloatingGrid from '../3d/FloatingGrid';
 import HolographicAvatar from '../3d/HolographicAvatar';
 import { ArrowRight, Award, TrendingUp, Users, Zap } from 'lucide-react';
 
@@ -206,7 +205,6 @@ const HeroSection = () => {
           <pointLight position={[10, 10, 10]} intensity={0.8} color="#9D00FF" />
           <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00FFFF" />
           <HolographicAvatar />
-          <FloatingGrid />
         </Canvas>
       </div>
     </motion.div>
